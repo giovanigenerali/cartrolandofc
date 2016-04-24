@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   function searchTeam() {
     var $team_input = $("#team"),
-        team = decodeURI($team_input.val()).toLowerCase();
+        team_name = decodeURI($team_input.val()).toLowerCase();
 
     if (team === "") {
       alert("Digite o nome do seu time para consultar!");
@@ -17,19 +17,14 @@ $(document).ready(function() {
       url: "load-api.php",
       data: {
         api: "busca-time",
-        team: team
+        team: team_name
       },
       beforeSend: function() {
         loading("show");
         teamsList("hide");
       },
-      success: function(data) {
-        if (data.error) {
-          error(data);
-          return false;
-        }
-
-        var teams_total = data.length;
+      success: function(teams) {
+        var teams_total = teams.length;
 
         if (teams_total == 0) {
           alert("O time que você digitou não foi encontrado, verifique se o nome está correto!");
@@ -37,9 +32,9 @@ $(document).ready(function() {
           loading("hide");
           return false;
         } else if (teams_total > 1) {
-          showTeamsList(team, teams_total);
+          showTeamsList(teams, teams_total);
         } else {
-          var team_slug = data[0].slug;
+          var team_slug = teams[0].slug;
           getAthletes(team_slug);
         }
       },
@@ -47,7 +42,7 @@ $(document).ready(function() {
         loading("hide");
       },
       error: function () {
-        alert("Ocorreu algum erro ao consultar seu time!\n Aguarde alguns instantes para uma nova consulta...");
+        alert("Ocorreu algum erro ao consultar seu time!\n Aguarde alguns instantes para uma nova consulta.");
         $team_input.focus();
         loading("hide");
         return false;
@@ -55,86 +50,53 @@ $(document).ready(function() {
     });
   }
 
-  function showTeamsList(team, teams_total) {
+  function showTeamsList(teams, teams_total) {
     var $team_input = $("#team"),
         $teams_list = $("#teams_list");
 
-    $.ajax({
-      type: "GET",
-      contentType: "application/json",
-      cache: false,
-      url: "load-api.php",
-      data: {
-        api: "busca-time",
-        team: team
-      },
-      beforeSend: function() {
-        $teams_list.html("");
-        teamsList("hide");
-        loading("show");
-      },
-      success: function(data) {
+    $teams_list.html("");
+    teamsList("hide");
+    loading("show");
 
-        if (data.error) {
-          error(data);
-          return false;
-        }
+    var team_row_content = "<ul class='teams'>";
 
-        var teams = data,
-            team_row_content = "<ul class='teams'>";
+    for (var i=0; i < teams.length; i++) {
+      var team_slug = teams[i].slug,
+          team_nome = teams[i].nome,
+          team_escudo = teams[i].url_escudo_svg,
+          team_nome = teams[i].nome,
+          team_cartoleiro = teams[i].nome_cartola;
 
-        for (var i=0; i < teams.length; i++) {
-          var team_slug = teams[i].slug,
-              team_nome = teams[i].nome,
-              team_escudo = teams[i].url_escudo_svg,
-              team_nome = teams[i].nome,
-              team_cartoleiro = teams[i].nome_cartola;
+      team_row_content += " \
+        <li data-slug='"+ team_slug +"' data-nome='"+ team_nome +"'> \
+          <img src="+ team_escudo +" class='escudo'> \
+          <div class='nome'>"+ team_nome +"</div> \
+          <div class='cartola'>"+ team_cartoleiro +"</div> \
+        </li> \
+      \n";
+    }
 
-          team_row_content += " \
-            <li data-slug='"+ team_slug +"' data-nome='"+ team_nome +"'> \
-              <img src="+ team_escudo +" class='escudo'> \
-              <div class='nome'>"+ team_nome +"</div> \
-              <div class='cartola'>"+ team_cartoleiro +"</div> \
-            </li> \
-          \n";
-        }
+    team_row_content += "</ul>";
 
-        team_row_content += "</ul>";
+    $teams_list.append(team_row_content);
 
-        $teams_list.append(team_row_content);
-
-        $teams_list.find("li").on("click", function() {
-          teamsList("hide");
-          $team_input.val("").val($(this).data("nome"));
-          getAthletes($(this).data("slug"));
-        });
-
-        teamsList("show");
-      },
-      complete: function() {
-        loading("hide");
-      },
-      error: function () {
-        alert("Ocorreu algum erro ao consultar a lista de times! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
-        $team.focus();
-        $teams_list.html("");
-        teamsList("hide");
-        loading("hide");
-        return false;
-      }
+    $teams_list.find("li").on("click", function() {
+      teamsList("hide");
+      $team_input.val("").val($(this).data("nome"));
+      getAthletes($(this).data("slug"));
     });
+
+    teamsList("show");
   }
 
   function getAthletes(team_slug) {
     var $team_input = $("#team"),
-        $result = $("#result"),
         $team_escudo = $(".team_escudo"),
         $team_nome = $(".team_nome h1"),
         $team_cartola = $(".team_nome h3"),
         $team_rodada = $(".team_rodada"),
         $team_pontuacao = $(".team_pontuacao"),
-        $team_escalacao = $(".team_escalacao table"),
-        team_slug = team_slug;
+        $team_escalacao = $(".team_escalacao table");
 
     $.ajax({
       type: "GET",
@@ -155,17 +117,16 @@ $(document).ready(function() {
 
         loading("show");
       },
-      success: function(data) {
+      success: function(request) {
 
-        if (data.length == 0) {
+        if (request.length == 0) {
           alert("Ocorreu algum erro ao consultar a lista de jogadores! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
           $team_input.focus();
           loading("hide");
           return false;
         }
 
-        var request = data,
-            athletics = request.atletas,
+        var athletics = request.atletas,
             team = (request.time == "" ? "---" : request.time),
             team_escudo = (team.url_escudo_png == "" ? "---" : team.url_escudo_png),
             team_nome = (team.nome == "" ? "---" : team.nome),
@@ -175,6 +136,7 @@ $(document).ready(function() {
             team_pontuacao = (typeof request.pontos === "undefined") ? "" : request.pontos.toFixed(2),
             escalacao_rows = "<tbody>";
 
+        // team
         $team_escudo.html("<img src="+ team_escudo +">");
         $team_nome.html(team_nome);
         $team_cartola.html(team_cartola);
@@ -185,19 +147,23 @@ $(document).ready(function() {
           $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
         }
 
+        // athletics
         if (typeof athletics !== "undefined") {
+
           $.each(athletics, function(inc, athletic) {
 
-            var athletic_escudo = (request.clubes[athletic.clube_id].escudos['30x30'] == null ? "" : request.clubes[athletic.clube_id].escudos['30x30']),
-                athletic_posicao = (request.clubes[athletic.clube_id].abreviacao == "" ? "---" : request.clubes[athletic.clube_id].abreviacao),
+            var athletic_clube_escudo = (request.clubes[athletic.clube_id].escudos == null ? "" : request.clubes[athletic.clube_id].escudos),
+                athletic_foto = athletic.foto,
+                athletic_posicao = request.posicoes[athletic.posicao_id].abreviacao.toUpperCase(),
                 athletic_nome = (athletic.apelido == "" ? "---" : athletic.apelido.toUpperCase()),
                 athletic_pontos = (athletic.pontos_num == "" ? "---" : athletic.pontos_num.toFixed(2));
 
             escalacao_rows += " \
             <tr> \
-            <td class='athletic_escudo'><img src='"+ athletic_escudo +"'></td> \
-            <td class='athletic_posicao'>"+ athletic_posicao +"</td> \
+            <td class='athletic_clube'><img src='"+ athletic_clube_escudo['45x45'] +"'></td> \
+            <td class='athletic_foto'><img class='img-circle' src='"+ athletic_foto.replace("FORMATO", "80x80") +"'></td> \
             <td class='athletic_nome'>"+ athletic_nome +"</td> \
+            <td class='athletic_posicao'>"+ athletic_posicao +"</td> \
             <td class='athletic_pontos'>"+ athletic_pontos +"</td> \
             </tr> \
             ";
@@ -222,7 +188,6 @@ $(document).ready(function() {
           }
         })
 
-        $result.show();
       },
       complete: function() {
         loading("hide");
