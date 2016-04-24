@@ -1,10 +1,11 @@
 https://api.cartolafc.globo.com/mercado/status
 https://api.cartolafc.globo.com/mercado/destaques
 https://api.cartolafc.globo.com/patrocinadores
+https://api.cartolafc.globo.com/rodadas
 https://api.cartolafc.globo.com/partidas
 https://api.cartolafc.globo.com/clubes
 https://api.cartolafc.globo.com/atletas/mercado
 https://api.cartolafc.globo.com/atletas/pontuados
-# slug = slb-encarnados
-https://api.cartolafc.globo.com/times?q=slb-encarnados
-https://api.cartolafc.globo.com/time/slb-encarnados
+#slug exemplo: cartolafc
+https://api.cartolafc.globo.com/times?q=[slug]
+https://api.cartolafc.globo.com/time/[slug]

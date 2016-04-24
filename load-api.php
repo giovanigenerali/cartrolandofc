@@ -6,11 +6,11 @@
 
     if ($_GET["api"] === "busca-time") {
 
-      echo file_get_contents("http://api.cartola.globo.com/time/busca.json?nome=". rawurlencode($_GET["team"]));
+      echo file_get_contents("https://api.cartolafc.globo.com/times?q=". rawurlencode($_GET["team"]));
 
     } else if ($_GET["api"] === "busca-atletas") {
 
-      echo file_get_contents("http://api.cartola.globo.com/time_adv/". $_GET["team_slug"] .".json");
+      echo file_get_contents("https://api.cartolafc.globo.com/time/". $_GET["team_slug"]);
 
     }
 

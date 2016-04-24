@@ -3,7 +3,7 @@ $(document).ready(function() {
   function searchTeam() {
     var $team_input = $("#team"),
         team = decodeURI($team_input.val()).toLowerCase();
-    
+
     if (team === "") {
       alert("Digite o nome do seu time para consultar!");
       $team_input.focus();
@@ -29,7 +29,7 @@ $(document).ready(function() {
           return false;
         }
 
-        var teams_total = data.total;
+        var teams_total = data.length;
 
         if (teams_total == 0) {
           alert("O time que você digitou não foi encontrado, verifique se o nome está correto!");
@@ -37,9 +37,9 @@ $(document).ready(function() {
           loading("hide");
           return false;
         } else if (teams_total > 1) {
-          showTeamsList(team, teams_total, 0, 20);
+          showTeamsList(team, teams_total);
         } else {
-          var team_slug = data.times[0].slug;
+          var team_slug = data[0].slug;
           getAthletes(team_slug);
         }
       },
@@ -55,7 +55,7 @@ $(document).ready(function() {
     });
   }
 
-  function showTeamsList(team, teams_total, teams_per_page) {
+  function showTeamsList(team, teams_total) {
     var $team_input = $("#team"),
         $teams_list = $("#teams_list");
 
@@ -80,13 +80,13 @@ $(document).ready(function() {
           return false;
         }
 
-        var teams = data.times,
+        var teams = data,
             team_row_content = "<ul class='teams'>";
 
         for (var i=0; i < teams.length; i++) {
           var team_slug = teams[i].slug,
               team_nome = teams[i].nome,
-              team_escudo = teams[i].imagens_escudo.img_escudo_32x32,
+              team_escudo = teams[i].url_escudo_svg,
               team_nome = teams[i].nome,
               team_cartoleiro = teams[i].nome_cartola;
 
@@ -98,11 +98,11 @@ $(document).ready(function() {
             </li> \
           \n";
         }
-        
+
         team_row_content += "</ul>";
 
         $teams_list.append(team_row_content);
-        
+
         $teams_list.find("li").on("click", function() {
           teamsList("hide");
           $team_input.val("").val($(this).data("nome"));
@@ -152,51 +152,65 @@ $(document).ready(function() {
         $team_rodada.html("");
         $team_pontuacao.html("");
         $team_escalacao.html("");
-        
+
         loading("show");
       },
       success: function(data) {
-        if (typeof data.errors !== "undefined") {
-          alert(data.errors.error.message);
+
+        if (data.length == 0) {
+          alert("Ocorreu algum erro ao consultar a lista de jogadores! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
           $team_input.focus();
           loading("hide");
           return false;
         }
 
         var request = data,
-            athletics = request.atleta,
+            athletics = request.atletas,
             team = (request.time == "" ? "---" : request.time),
-            team_escudo = (team.imagens_escudo == "" ? "---" : team.imagens_escudo.img_escudo_160x160),
+            team_escudo = (team.url_escudo_png == "" ? "---" : team.url_escudo_png),
             team_nome = (team.nome == "" ? "---" : team.nome),
             team_cartola = (team.nome_cartola == "" ? "---" : team.nome_cartola),
             team_patrimonio = (team.patrimonio == "" ? "---" : team.patrimonio),
-            team_rodada = (team.rodada == "" ? "---" : team.rodada),
-            team_pontuacao = (team.pontuacao == "" ? "---" : team.pontuacao),
+            team_rodada = (typeof athletics === "undefined") ? "" : athletics[0].rodada_id,
+            team_pontuacao = (typeof request.pontos === "undefined") ? "" : request.pontos.toFixed(2),
             escalacao_rows = "<tbody>";
 
         $team_escudo.html("<img src="+ team_escudo +">");
         $team_nome.html(team_nome);
         $team_cartola.html(team_cartola);
-        $team_rodada.html(team_rodada + "ª Rodada");
-        $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
+        if (team_rodada != "") {
+          $team_rodada.html(team_rodada + "ª Rodada");
+        }
+        if (team_pontuacao != "") {
+          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
+        }
 
-        $.each(athletics, function(inc, data) {
-          var athletic_escudo = (data.clube.escudo_pequeno == null ? "" : data.clube.escudo_pequeno),
-              athletic_posicao = (data.posicao.abreviacao == "" ? "---" : data.posicao.abreviacao),
-              athletic_nome = (data.apelido == "" ? "---" : data.apelido.toUpperCase()),
-              athletic_pontos = (data.pontos == "" ? "---" : data.pontos);
+        if (typeof athletics !== "undefined") {
+          $.each(athletics, function(inc, athletic) {
 
-          escalacao_rows += " \
-          <tr> \
-          <td class='athletic_escudo'><img src='"+ athletic_escudo +"'></td> \
-          <td class='athletic_posicao'>"+ athletic_posicao +"</td> \
-          <td class='athletic_nome'>"+ athletic_nome +"</td> \
-          <td class='athletic_pontos'>"+ athletic_pontos +"</td> \
-          </tr> \
-          ";
-        });
+            var athletic_escudo = (request.clubes[athletic.clube_id].escudos['30x30'] == null ? "" : request.clubes[athletic.clube_id].escudos['30x30']),
+                athletic_posicao = (request.clubes[athletic.clube_id].abreviacao == "" ? "---" : request.clubes[athletic.clube_id].abreviacao),
+                athletic_nome = (athletic.apelido == "" ? "---" : athletic.apelido.toUpperCase()),
+                athletic_pontos = (athletic.pontos_num == "" ? "---" : athletic.pontos_num.toFixed(2));
 
-        $team_escalacao.append(escalacao_rows);
+            escalacao_rows += " \
+            <tr> \
+            <td class='athletic_escudo'><img src='"+ athletic_escudo +"'></td> \
+            <td class='athletic_posicao'>"+ athletic_posicao +"</td> \
+            <td class='athletic_nome'>"+ athletic_nome +"</td> \
+            <td class='athletic_pontos'>"+ athletic_pontos +"</td> \
+            </tr> \
+            ";
+          });
+          $team_escalacao.append(escalacao_rows);
+        } else {
+          escalacao_rows += "<tr><td class='text-center'>"+ request.mensagem +"</td></tr>";
+          $team_escalacao.append(escalacao_rows);
+          teamsList("hide");
+          loading("hide");
+          return false;
+        }
+
 
         $(".athletic_pontos").each(function() {
           $(this).removeClass("neutro negativo");
@@ -207,7 +221,7 @@ $(document).ready(function() {
             $(this).addClass("negativo");
           }
         })
-        
+
         $result.show();
       },
       complete: function() {
@@ -222,7 +236,7 @@ $(document).ready(function() {
     });
   }
 
-  
+
   function loading(status) {
     var $loading = $("#loading");
 
