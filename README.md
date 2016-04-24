@@ -5,8 +5,6 @@ http://cartrolandofc.url.ph
 
 ![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen1.png)
 
-![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen2.png)
-
 ![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen3.png)
 
 
