@@ -3,10 +3,6 @@
   text-align: center;
 }
 
-#result {
-  display: none;
-}
-
 #teams_list {
   display: none;
   border: 1px solid #ccc;
@@ -124,16 +120,16 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
   line-height: initial !important;
   white-space: normal !important;
 }
-.athletic_foto img {
+.athlete_foto img {
   border: 1px solid #DDD;
   width: 50%;
 }
-.athletic_pontos {
+.athlete_pontos {
   color: #3ea909;
 }
-.athletic_pontos.neutro {
+.athlete_pontos.neutro {
   color: #000;
 }
-.athletic_pontos.negativo {
+.athlete_pontos.negativo {
   color: #f00;
 }
