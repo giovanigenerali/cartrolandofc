@@ -9,3 +9,4 @@ https://api.cartolafc.globo.com/atletas/pontuados
 #slug exemplo: cartolafc
 https://api.cartolafc.globo.com/times?q=[slug]
 https://api.cartolafc.globo.com/time/[slug]
+https://api.cartolafc.globo.com/ligas?q=[slug]
