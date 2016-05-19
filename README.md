@@ -1,4 +1,6 @@
 # CartrolandoFC 
+
+[![Join the chat at https://gitter.im/wgenial/cartrolandofc](https://badges.gitter.im/wgenial/cartrolandofc.svg)](https://gitter.im/wgenial/cartrolandofc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![GitHub forks](https://img.shields.io/github/forks/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/network)
 [![GitHub stars](https://img.shields.io/github/stars/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/issues)
