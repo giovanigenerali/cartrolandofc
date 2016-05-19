@@ -1,4 +1,4 @@
-# :tophat: CartrolandoFC 
+# CartrolandoFC 
 [![GitHub forks](https://img.shields.io/github/forks/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/network)
 [![GitHub stars](https://img.shields.io/github/stars/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/issues)
