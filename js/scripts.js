@@ -132,35 +132,50 @@ $(document).ready(function() {
             team_nome = (team.nome == "" ? "---" : team.nome),
             team_cartola = (team.nome_cartola == "" ? "---" : team.nome_cartola),
             team_patrimonio = (team.patrimonio == "" ? "---" : team.patrimonio),
-            team_rodada = (typeof athletes === "undefined") ? "" : athletes[0].rodada_id,
-            team_pontuacao = (typeof request.pontos === "undefined") ? "" : request.pontos.toFixed(2),
             escalacao_rows = "<tbody>";
 
         // team
         $team_escudo.html("<img src="+ team_escudo +">");
         $team_nome.html(team_nome);
         $team_cartola.html(team_cartola);
-        if (team_rodada != "") {
-          $team_rodada.html(team_rodada + "ª Rodada");
-        }
-        if (team_pontuacao != "") {
-          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
-        }
 
         // athletes
-        if (typeof athletes !== "undefined") {
+        if (typeof athletes !== "undefined" && athletes.length > 0) {
 
+          var team_rodada = athletes[0].rodada_id,
+              team_pontuacao = (typeof request.pontos === "undefined") ? "" : request.pontos.toFixed(2);
+
+          // rodada
+          if (team_rodada != "") {
+            $team_rodada.html(team_rodada + "ª Rodada");
+          }
+
+          // pontuacao
+          if (team_pontuacao != "") {
+            $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
+          }
+
+          // loop athletes
           $.each(athletes, function(inc, athlete) {
 
-            var athlete_clube_escudo = (request.clubes[athlete.clube_id].escudos == null ? "" : request.clubes[athlete.clube_id].escudos),
-                athlete_foto = athlete.foto,
+            // escludo clube
+            var athlete_clube_escudo = "", clube_escudo45x45 = "";
+            if (athlete.clube_id != 1) {
+              clube_escudo45x45 = request.clubes[athlete.clube_id].escudos['45x45'];
+              if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
+                athlete_clube_escudo = "<img src='"+ clube_escudo45x45 +"'>";
+              }
+            }
+
+            // athlete
+            var athlete_foto = athlete.foto,
                 athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase(),
                 athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase()),
                 athlete_pontos = (athlete.pontos_num == "" ? "---" : athlete.pontos_num.toFixed(2));
 
             escalacao_rows += " \
             <tr> \
-            <td class='athlete_clube'><img src='"+ athlete_clube_escudo['45x45'] +"'></td> \
+            <td class='athlete_clube'>"+ athlete_clube_escudo +"</td> \
             <td class='athlete_foto'><img class='img-circle' src='"+ athlete_foto.replace("FORMATO", "80x80") +"'></td> \
             <td class='athlete_nome'>"+ athlete_nome +"</td> \
             <td class='athlete_posicao'>"+ athlete_posicao +"</td> \
@@ -170,14 +185,20 @@ $(document).ready(function() {
           });
           $team_escalacao.append(escalacao_rows);
         } else {
-          escalacao_rows += "<tr><td class='text-center'>"+ request.mensagem +"</td></tr>";
+          var message = "";
+          if (typeof request.mensagem !== "undefined" && request.mensagem !== "") {
+            message = request.mensagem;
+          } else {
+            message = "A escalação desse time ainda não pode ser exibida.";
+          }
+          escalacao_rows += "<tr><td class='text-center'>"+ message +"</td></tr>";
           $team_escalacao.append(escalacao_rows);
           teamsList("hide");
           loading("hide");
           return false;
         }
 
-
+        // config pontuacao
         $(".athlete_pontos").each(function() {
           $(this).removeClass("neutro negativo");
 
