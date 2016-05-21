@@ -127,17 +127,21 @@ $(document).ready(function() {
         }
 
         var athletes = request.atletas,
-            team = (request.time == "" ? "---" : request.time),
-            team_escudo = (team.url_escudo_png == "" ? "---" : team.url_escudo_png),
-            team_nome = (team.nome == "" ? "---" : team.nome),
-            team_cartola = (team.nome_cartola == "" ? "---" : team.nome_cartola),
-            team_patrimonio = (team.patrimonio == "" ? "---" : team.patrimonio),
+            team = request.time,
             escalacao_rows = "<tbody>";
 
         // team
-        $team_escudo.html("<img src="+ team_escudo +">");
-        $team_nome.html(team_nome);
-        $team_cartola.html(team_cartola);
+        if (typeof team !== "undefined") {
+
+          var team_escudo = (team.url_escudo_png == "" ? "" : "<img src="+ team.url_escudo_png +">"),
+              team_nome = (team.nome == "" ? "" : team.nome),
+              team_cartola = (team.nome_cartola == "" ? "" : team.nome_cartola),
+              team_patrimonio = (team.patrimonio == "" ? "" : team.patrimonio);
+
+          $team_escudo.html(team_escudo);
+          $team_nome.html(team_nome);
+          $team_cartola.html(team_cartola);
+        }
 
         // athletes
         if (typeof athletes !== "undefined" && athletes.length > 0) {
@@ -185,6 +189,7 @@ $(document).ready(function() {
           });
           $team_escalacao.append(escalacao_rows);
         } else {
+
           var message = "";
           if (typeof request.mensagem !== "undefined" && request.mensagem !== "") {
             message = request.mensagem;
@@ -213,7 +218,7 @@ $(document).ready(function() {
       complete: function() {
         loading("hide");
       },
-      error: function () {
+      error: function (error) {
         alert("Ocorreu algum erro ao consultar os atletas do seu time! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
         $team_input.focus();
         loading("hide");
