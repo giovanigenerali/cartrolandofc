@@ -7,6 +7,8 @@
       $url = "https://api.cartolafc.globo.com/times?q=". rawurlencode($_GET["team"]);
     } else if ($_GET["api"] === "busca-atletas") {
       $url = "https://api.cartolafc.globo.com/time/". $_GET["team_slug"];
+    } else if ($_GET["api"] === "parciais-atletas") {
+      $url = "https://api.cartolafc.globo.com/atletas/pontuados";
     }
 
     $c = curl_init();

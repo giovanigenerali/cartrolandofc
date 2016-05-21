@@ -89,6 +89,26 @@ $(document).ready(function() {
     teamsList("show");
   }
 
+  function getPontuacao() {
+    return $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      dataType: "json",
+      cache: false,
+      url: "load-api.php?api=parciais-atletas",
+      success: function(data) {
+        return data;
+      }
+    });
+  }
+
+  function statusPontuacao() {
+    getPontuacao().done(function(result) {
+      atletas_pontuados = result.atletas;
+      rodada_atual = result.rodada;
+    });
+  }
+
   function getAthletes(team_slug) {
     var $team_input = $("#team"),
         $team_escudo = $(".team_escudo"),
@@ -146,19 +166,13 @@ $(document).ready(function() {
         // athletes
         if (typeof athletes !== "undefined" && athletes.length > 0) {
 
-          var team_rodada = athletes[0].rodada_id,
-              team_pontuacao = (typeof request.pontos === "undefined") ? "" : request.pontos.toFixed(2);
-
           // rodada
+          var team_rodada = (typeof rodada_atual !== "undefined") ? rodada_atual : athletes[0].rodada_id;
           if (team_rodada != "") {
             $team_rodada.html(team_rodada + "ª Rodada");
           }
 
-          // pontuacao
-          if (team_pontuacao != "") {
-            $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
-          }
-
+          var team_pontuacao = 0;
           // loop athletes
           $.each(athletes, function(inc, athlete) {
 
@@ -171,11 +185,19 @@ $(document).ready(function() {
               }
             }
 
-            // athlete
+            // athlete info
             var athlete_foto = athlete.foto,
                 athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase(),
-                athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase()),
-                athlete_pontos = (athlete.pontos_num == "" ? "---" : athlete.pontos_num.toFixed(2));
+                athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase());
+
+            // athlete points
+            var athlete_pontos;
+            if (atletas_pontuados !== null && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
+              athlete_pontos = atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2);
+              team_pontuacao += atletas_pontuados[athlete.atleta_id].pontuacao;
+            } else {
+              athlete_pontos = "---";
+            }
 
             escalacao_rows += " \
             <tr> \
@@ -188,6 +210,10 @@ $(document).ready(function() {
             ";
           });
           $team_escalacao.append(escalacao_rows);
+
+          // team pontuacao
+          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
+
         } else {
 
           var message = "";
@@ -227,7 +253,6 @@ $(document).ready(function() {
     });
   }
 
-
   function loading(status) {
     var $loading = $("#loading");
 
@@ -259,13 +284,19 @@ $(document).ready(function() {
     alert(data.error);
   }
 
+
+  atletas_pontuados = null;
+  rodada_atual = 0;
+
   $("#search").on("click", function() {
     searchTeam();
+    statusPontuacao();
   });
 
   $("#team").keypress(function(e) {
     if (e.which == 13) {
       searchTeam();
+      statusPontuacao();
     }
   });
 
