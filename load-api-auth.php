@@ -1,12 +1,29 @@
 <?php
-  header('Content-type: application/json');
+  session_start();
 
-  require 'auth.php';
+  header('Content-type: application/json');
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
 
     if ($_GET["api"] === "liga") {
-      $url = "https://api.cartolafc.globo.com/auth/liga/". $_GET["liga_slug"];
+
+      // $orderBy: campeonato, turno, mes, rodada, patrimonio
+      $orderBy = "";
+      if (isset($_GET["orderBy"]) && $_GET["orderBy"] != "") {
+        $orderBy = "?orderBy=". $_GET["orderBy"];
+      }
+
+      // $page: 1, 2, 3...
+      $page = "";
+      if (isset($_GET["page"]) && $_GET["page"] != "") {
+        if (!array_key_exists("orderBy", $_GET)) {
+          $page = "?page=". $_GET["page"];
+        } else {
+          $page = "&page=". $_GET["page"];
+        }
+      }
+
+      $url = "https://api.cartolafc.globo.com/auth/liga/". $_GET["liga_slug"] . $orderBy . $page;
     }
 
     $c = curl_init();
