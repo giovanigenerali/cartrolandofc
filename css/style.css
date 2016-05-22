@@ -98,3 +98,26 @@ body {
   right: 0;
   border: 0;
 }
+
+/* Social buttons */
+.social {
+  text-align: center;
+  padding-bottom: 10px;
+}
+.social div {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 8px;
+}
+.facebook iframe {
+  transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  transform-origin: center;
+  -ms-transform-origin: center;
+  -webkit-transform-origin: center;
+  -moz-transform-origin: center;
+  -webkit-transform-origin: center;
+}
