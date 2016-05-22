@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  include 'auth.php';
 
   header('Content-type: application/json');
 
