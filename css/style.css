@@ -125,3 +125,16 @@ body {
   -moz-transform-origin: center;
   -webkit-transform-origin: center;
 }
+
+/* Rodada atual */
+.rodada-atual {
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 0;
+  background: #EFEFEF;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  line-height: 1.5em;
+}

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   function getPontuacaoAtletas() {
-    var $lista_atletas = $(".team_escalacao table");
+    var $lista_atletas = $(".team_escalacao table"), $rodada_atual = $(".rodada-atual");
 
     $.ajax({
       type: "GET",
@@ -12,6 +12,7 @@ $(document).ready(function() {
         api: "parciais-atletas"
       },
       beforeSend: function() {
+        $rodada_atual.html("").hide();
         $lista_atletas.html("").hide();
         loading("show");
         $("#search").addClass("hide");
@@ -28,7 +29,6 @@ $(document).ready(function() {
             atletas_rows = "<tbody>";
 
         if (typeof atletas !== "undefined" && request.atletas != "") {
-
 
           $.each(atletas, function(inc, atleta) {
 
@@ -64,7 +64,9 @@ $(document).ready(function() {
             </tr> \
             ";
           });
+
           $lista_atletas.append(atletas_rows).show();
+          $rodada_atual.html(request.rodada + "ª Rodada").show();
 
         } else {
 
@@ -76,6 +78,7 @@ $(document).ready(function() {
           }
           atletas_rows += "<tr><td class='text-center'>"+ message +"</td></tr>";
           $lista_atletas.append(atletas_rows).show();
+          $rodada_atual.html("").hide();
           loading("hide");
           return false;
         }
@@ -98,9 +101,11 @@ $(document).ready(function() {
         searchRows();
       },
       error: function (error) {
-        alert("Ocorreu algum erro ao consultar os atletas da rodata atual! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
+        alert("Ocorreu algum erro ao consultar os atletas da rodada atual! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
         loading("hide");
         $("#search").addClass("hide");
+        $rodada_atual.html("").hide();
+        $lista_atletas.html("").hide();
         return false;
       }
     });
