@@ -64,7 +64,11 @@ body {
   padding: 14px 24px;
   font-size: 18px;
 }
-
+.jumbotron a {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 /* Supporting result content */
 .result {
   margin: 40px 0;
