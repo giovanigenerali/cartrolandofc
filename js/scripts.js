@@ -192,9 +192,13 @@ $(document).ready(function() {
 
             // athlete points
             var athlete_pontos;
-            if (atletas_pontuados !== null && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
+
+            if (atletas_pontuados !== null && typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
               athlete_pontos = atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2);
               team_pontuacao += atletas_pontuados[athlete.atleta_id].pontuacao;
+            } else if (typeof atletas_pontuados === "undefined") {
+              athlete_pontos = athlete.pontos_num.toFixed(2);
+              team_pontuacao += athlete.pontos_num;
             } else {
               athlete_pontos = "---";
             }
