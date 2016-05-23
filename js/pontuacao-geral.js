@@ -48,11 +48,13 @@ $(document).ready(function() {
             // atleta foto
             var atleta_foto = atleta.foto, atleta_foto80x80 = "";
             if (atleta_foto !== "" && atleta_foto !== null) {
-              atleta_foto80x80 = "<img class='img-circle' src='"+ atleta_foto.replace("FORMATO", "80x80") +"'>";
+              atleta_foto80x80 = "<img class='img-full' src='"+ atleta_foto.replace("FORMATO", "140x140") +"'>";
+            } else {
+              atleta_foto80x80 = "<img class='img-full' src='images/foto-jogador.svg'>";
             }
 
             // athlete pontuacao
-            var atleta_pontuacao = atleta.pontuacao;
+            var atleta_pontuacao = atleta.pontuacao.toFixed(2);
 
             atletas_rows += " \
             <tr> \

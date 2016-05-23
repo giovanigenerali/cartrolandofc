@@ -48,11 +48,19 @@
     font-size: 0.95em;
   }
   .athlete_clube img {
-    width: 24px;
+    min-width: 30px;
+    max-width: 100%;
   }
   .athlete_foto img {
     border: 1px solid #DDD;
     width: 30px;
+  }
+  .athlete_foto .img-full {
+    border: none;
+    width: 100%;
+    position: relative;
+    bottom: -10px;
+    max-width: 140px;
   }
 
   #teams_list li {

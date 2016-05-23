@@ -124,6 +124,12 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
   border: 1px solid #DDD;
   width: 50%;
 }
+.athlete_foto .img-full {
+  border: none;
+  width: 50%;
+  position: relative;
+  bottom: -8px;
+}
 .athlete_pontos {
   color: #3ea909;
 }
