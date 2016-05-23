@@ -14,6 +14,11 @@ https://cartolafc-wgenial.rhcloud.com
 
 ![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen3.png)
 
+
+### Pontuação geral dos jogadores na rodada atual
+
+[https://cartolafc-wgenial.rhcloud.com/parciais.html](https://cartolafc-wgenial.rhcloud.com/parciais.html)
+
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
 Dúvidas podem ser enviadas [por aqui](https://github.com/wgenial/cartrolandofc/issues).
