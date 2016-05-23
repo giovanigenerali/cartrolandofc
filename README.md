@@ -1,4 +1,4 @@
-# CartrolandoFC 
+# CartrolandoFC
 [![GitHub forks](https://img.shields.io/github/forks/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/network)
 [![GitHub stars](https://img.shields.io/github/stars/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/issues)
@@ -17,7 +17,7 @@ https://cartolafc-wgenial.rhcloud.com
 
 ### Pontuação geral dos jogadores na rodada atual
 
-[https://cartolafc-wgenial.rhcloud.com/parciais.html](https://cartolafc-wgenial.rhcloud.com/parciais.html)
+[https://cartolafc-wgenial.rhcloud.com/pontuacao-geral.html](https://cartolafc-wgenial.rhcloud.com/pontuacao-geral.html)
 
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
