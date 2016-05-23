@@ -138,3 +138,6 @@ body {
   border-top-right-radius: 6px;
   line-height: 1.5em;
 }
+.msg {
+  background: #F9F9F9;
+}

@@ -78,7 +78,7 @@ $(document).ready(function() {
           } else {
             message = "A escalação desse time ainda não pode ser exibida.";
           }
-          atletas_rows += "<tr><td class='text-center'>"+ message +"</td></tr>";
+          atletas_rows += "<tr><td class='text-center msg'>"+ message +"</td></tr>";
           $lista_atletas.append(atletas_rows).show();
           $rodada_atual.html("").hide();
           loading("hide");
@@ -99,8 +99,12 @@ $(document).ready(function() {
       },
       complete: function() {
         loading("hide");
-        $("#search").removeClass("hide");
-        searchRows();
+        if (message != "") {
+          $("#search").addClass("hide");
+        } else {
+          $("#search").removeClass("hide");
+          searchRows();
+        }
       },
       error: function (error) {
         alert("Ocorreu algum erro ao consultar os atletas da rodada atual! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
