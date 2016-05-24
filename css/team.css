@@ -87,23 +87,16 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
 .team_rodata_pontuacao .team_rodada {
   font-weight: bold;
 }
-.team_rodata_pontuacao .team_pontuacao {
-  overflow: hidden;
-}
 .team_rodata_pontuacao .team_pontuacao .pontos-label {
   font-size: 30px;
   display: block;
-  float: left;
 }
 .team_rodata_pontuacao .team_pontuacao .pontuacao-label {
   display: block;
-  margin: 10px 0 0 0px;
-  float: right;
+  margin: 0;
   text-transform: uppercase;
   font-size: 12px;
   color: #777;
-  width: 70px;
-  line-height: 12px;
 }
 
 .team_escalacao {
@@ -137,5 +130,15 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
   color: #000;
 }
 .athlete_pontos.negativo {
+  color: #f00;
+}
+
+.pontos-label.positivo {
+  color: #3ea909;
+}
+.pontos-label.neutro {
+  color: #000;
+}
+.pontos-label.negativo {
   color: #f00;
 }

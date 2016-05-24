@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   function getPontuacaoAtletas() {
-    var $lista_atletas = $(".team_escalacao table"), $rodada_atual = $(".rodada-atual");
+    var $lista_atletas = $(".team_escalacao table"), $rodada_atual = $(".rodada-atual"), message = "";;
 
     $.ajax({
       type: "GET",
@@ -72,7 +72,6 @@ $(document).ready(function() {
 
         } else {
 
-          var message = "";
           if (typeof request.mensagem !== "undefined" && request.mensagem !== "") {
             message = request.mensagem;
           } else {
