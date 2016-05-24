@@ -1,12 +1,38 @@
+# status do mercado
 https://api.cartolafc.globo.com/mercado/status
+
+# lista dos jogadores mais escalados
 https://api.cartolafc.globo.com/mercado/destaques
+
+# lista de patrocinadores
 https://api.cartolafc.globo.com/patrocinadores
+
+# lista das rodadas do campeonato (1 até 38)
 https://api.cartolafc.globo.com/rodadas
+
+# próximas partidas do campeonato
 https://api.cartolafc.globo.com/partidas
+
+# lista de clubes
 https://api.cartolafc.globo.com/clubes
+
+# lista de todos os jogadores (retorna todas as informações)
 https://api.cartolafc.globo.com/atletas/mercado
+
+# pontuação da rodada em andamento
 https://api.cartolafc.globo.com/atletas/pontuados
-#slug exemplo: cartolafc
-https://api.cartolafc.globo.com/times?q=[slug]
-https://api.cartolafc.globo.com/time/[slug]
-https://api.cartolafc.globo.com/ligas?q=[slug]
+
+# time que mais pontuou na rodada anterior
+https://api.cartolafc.globo.com/pos-rodada/destaques
+
+# busca geral de times, vai retornar info do time e o slug
+https://api.cartolafc.globo.com/times?q=[nome do time]
+
+# busca informações de um time específico, usar o slug do time.
+https://api.cartolafc.globo.com/time/[slug do time]
+
+# busca geral de ligas, para consultar uma liga específica é necessário token
+https://api.cartolafc.globo.com/ligas?q=[nome da liga]
+
+# busca informações de uma liga específica, usar o slug da liga.
+https://api.cartolafc.globo.com/auth/liga/[slug da liga]
