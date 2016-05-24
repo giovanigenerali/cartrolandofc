@@ -265,12 +265,14 @@ $(document).ready(function() {
 
   function formatPontuacaoTime() {
     var $pts_label = $(".pontos-label");
-    if ($pts_label.html().indexOf("---") == 0) {
-      $pts_label.addClass("neutro");
-    } else if ($pts_label.html().indexOf("-") == 0) {
-      $pts_label.addClass("negativo");
-    } else {
-      $pts_label.addClass("positivo");
+    if ($pts_label.size() > 0) {
+      if ($pts_label.html().indexOf("---") == 0) {
+        $pts_label.addClass("neutro");
+      } else if ($pts_label.html().indexOf("-") == 0) {
+        $pts_label.addClass("negativo");
+      } else {
+        $pts_label.addClass("positivo");
+      }
     }
   }
 
