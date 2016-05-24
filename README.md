@@ -6,7 +6,7 @@
 
 CartrolandoFC é um site para consultar os pontos parciais do seu time no Cartola FC.
 
-https://cartolafc-wgenial.rhcloud.com
+[http://cartrolandofc.com](http://cartrolandofc.com)
 
 ![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen1.png)
 
@@ -17,7 +17,7 @@ https://cartolafc-wgenial.rhcloud.com
 
 ### Pontuação geral dos jogadores na rodada atual
 
-[https://cartolafc-wgenial.rhcloud.com/pontuacao-geral.html](https://cartolafc-wgenial.rhcloud.com/pontuacao-geral.html)
+[http://cartrolandofc.com/pontuacao-geral.html](http://cartrolandofc.com/pontuacao-geral.html)
 
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
