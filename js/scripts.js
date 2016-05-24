@@ -164,7 +164,7 @@ $(document).ready(function() {
         }
 
         // athletes
-        if (typeof athletes !== "undefined" && athletes.length > 0) {
+        if (typeof athletes !== "undefined" && athletes != null) {
 
           // rodada
           var team_rodada = (typeof rodada_atual !== "undefined") ? rodada_atual : athletes[0].rodada_id;
