@@ -172,6 +172,9 @@ $(document).ready(function() {
             $team_rodada.html(team_rodada + "ª Rodada");
           }
 
+          // rodada label
+          var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
+
           var team_pontuacao = 0;
           // loop athletes
           $.each(athletes, function(inc, athlete) {
@@ -206,7 +209,7 @@ $(document).ready(function() {
             escalacao_rows += " \
             <tr> \
             <td class='athlete_clube'>"+ athlete_clube_escudo +"</td> \
-            <td class='athlete_foto'><img class='img-circle' src='"+ athlete_foto.replace("FORMATO", "80x80") +"'></td> \
+            <td class='athlete_foto'><img class='img-full' src='"+ athlete_foto.replace("FORMATO", "140x140") +"'></td> \
             <td class='athlete_nome'>"+ athlete_nome +"</td> \
             <td class='athlete_posicao'>"+ athlete_posicao +"</td> \
             <td class='athlete_pontos'>"+ athlete_pontos +"</td> \
@@ -216,7 +219,7 @@ $(document).ready(function() {
           $team_escalacao.append(escalacao_rows);
 
           // team pontuacao
-          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>Pontos parciais</span>");
+          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>"+ pontuacao_label +"</span>");
 
         } else {
 
@@ -233,20 +236,11 @@ $(document).ready(function() {
           return false;
         }
 
-        // config pontuacao
-        $(".athlete_pontos").each(function() {
-          $(this).removeClass("neutro negativo");
-
-          if ($(this).html().indexOf("---") == 0) {
-            $(this).addClass("neutro");
-          } else if ($(this).html().indexOf("-") == 0) {
-            $(this).addClass("negativo");
-          }
-        })
-
       },
       complete: function() {
         loading("hide");
+        formatPontuacao();
+        formatPontuacaoTime();
       },
       error: function (error) {
         alert("Ocorreu algum erro ao consultar os atletas do seu time! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
@@ -255,6 +249,29 @@ $(document).ready(function() {
         return false;
       }
     });
+  }
+
+  function formatPontuacao() {
+    $(".athlete_pontos").each(function() {
+      $(this).removeClass("neutro negativo");
+
+      if ($(this).html().indexOf("---") == 0) {
+        $(this).addClass("neutro");
+      } else if ($(this).html().indexOf("-") == 0) {
+        $(this).addClass("negativo");
+      }
+    });
+  }
+
+  function formatPontuacaoTime() {
+    var $pts_label = $(".pontos-label");
+    if ($pts_label.html().indexOf("---") == 0) {
+      $pts_label.addClass("neutro");
+    } else if ($pts_label.html().indexOf("-") == 0) {
+      $pts_label.addClass("negativo");
+    } else {
+      $pts_label.addClass("positivo");
+    }
   }
 
   function loading(status) {
