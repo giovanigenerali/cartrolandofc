@@ -4,8 +4,10 @@ $(document).ready(function() {
     var $team_input = $("#team"),
         team_name = decodeURI($team_input.val()).toLowerCase();
 
-    if (team === "") {
-      alert("Digite o nome do seu time para consultar!");
+    if (team_name === "") {
+      showMessage("Digite o nome do seu time para consultar!","warning");
+      $("#team_info").hide();
+      teamsList("hide");
       $team_input.focus();
       return false;
     }
@@ -21,17 +23,22 @@ $(document).ready(function() {
       },
       beforeSend: function() {
         loading("show");
+        $("#team_info").hide();
         teamsList("hide");
+        $(".team_escalacao table").html("");
       },
       success: function(teams) {
         var teams_total = teams.length;
 
         if (teams_total == 0) {
-          alert("O time que você digitou não foi encontrado, verifique se o nome está correto!");
+          showMessage("O time que você digitou não foi encontrado, verifique se o nome está correto!","info");
           $team_input.focus();
           loading("hide");
+          $("#team_info").hide();
+          teamsList("hide");
           return false;
         } else if (teams_total > 1) {
+          // $("#team_info").show();
           showTeamsList(teams, teams_total);
         } else {
           var team_slug = teams[0].slug;
@@ -42,8 +49,10 @@ $(document).ready(function() {
         loading("hide");
       },
       error: function () {
-        alert("Ocorreu algum erro ao consultar seu time!\n Aguarde alguns instantes para uma nova consulta.");
+        showMessage("Ocorreu algum erro ao consultar seu time!\n Aguarde alguns instantes para uma nova consulta.","danger");
         $team_input.focus();
+        $("#team_info").hide();
+        teamsList("hide");
         loading("hide");
         return false;
       }
@@ -140,7 +149,7 @@ $(document).ready(function() {
       success: function(request) {
 
         if (request.length == 0) {
-          alert("Ocorreu algum erro ao consultar a lista de jogadores! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
+          showMessage("Ocorreu algum erro ao consultar a lista de jogadores!\n Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
           $team_input.focus();
           loading("hide");
           return false;
@@ -166,84 +175,79 @@ $(document).ready(function() {
         // athletes
         if (typeof athletes !== "undefined" && athletes != null) {
 
-          // rodada
-          var team_rodada = (typeof rodada_atual !== "undefined") ? rodada_atual : athletes[0].rodada_id;
-          if (team_rodada != "") {
-            $team_rodada.html(team_rodada + "ª Rodada");
-          }
+          if (athletes.length > 0) {
 
-          // rodada label
-          var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
+            var team_rodada = (typeof rodada_atual !== "undefined") ? rodada_atual : athletes[0].rodada_id;
+            if (team_rodada != "") {
+              $team_rodada.html(team_rodada + "ª Rodada");
+            }
 
-          var team_pontuacao = 0;
-          // loop athletes
-          $.each(athletes, function(inc, athlete) {
+            // rodada label
+            var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
 
-            // escludo clube
-            var athlete_clube_escudo = "", clube_escudo45x45 = "";
-            if (athlete.clube_id != 1) {
-              clube_escudo45x45 = request.clubes[athlete.clube_id].escudos['45x45'];
-              if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
-                athlete_clube_escudo = "<img src='"+ clube_escudo45x45 +"'>";
+            var team_pontuacao = 0;
+            // loop athletes
+            $.each(athletes, function(inc, athlete) {
+
+              // escludo clube
+              var athlete_clube_escudo = "", clube_escudo45x45 = "";
+              if (athlete.clube_id != 1) {
+                clube_escudo45x45 = request.clubes[athlete.clube_id].escudos['45x45'];
+                if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
+                  athlete_clube_escudo = "<img src='"+ clube_escudo45x45 +"'>";
+                }
               }
-            }
 
-            // athlete info
-            var athlete_foto = athlete.foto,
-                athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase(),
-                athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase());
+              // athlete info
+              var athlete_foto = athlete.foto,
+                  athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase(),
+                  athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase());
 
-            // athlete points
-            var athlete_pontos;
+              // athlete points
+              var athlete_pontos;
 
-            if (atletas_pontuados !== null && typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
-              athlete_pontos = atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2);
-              team_pontuacao += atletas_pontuados[athlete.atleta_id].pontuacao;
-            } else if (typeof atletas_pontuados === "undefined") {
-              athlete_pontos = athlete.pontos_num.toFixed(2);
-              team_pontuacao += athlete.pontos_num;
-            } else {
-              athlete_pontos = "---";
-            }
+              if (atletas_pontuados !== null && typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
+                athlete_pontos = atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2);
+                team_pontuacao += atletas_pontuados[athlete.atleta_id].pontuacao;
+              } else if (typeof atletas_pontuados === "undefined") {
+                athlete_pontos = athlete.pontos_num.toFixed(2);
+                team_pontuacao += athlete.pontos_num;
+              } else {
+                athlete_pontos = "---";
+              }
 
-            escalacao_rows += " \
-            <tr> \
-            <td class='athlete_clube'>"+ athlete_clube_escudo +"</td> \
-            <td class='athlete_foto'><img class='img-full' src='"+ athlete_foto.replace("FORMATO", "140x140") +"'></td> \
-            <td class='athlete_nome'>"+ athlete_nome +"</td> \
-            <td class='athlete_posicao'>"+ athlete_posicao +"</td> \
-            <td class='athlete_pontos'>"+ athlete_pontos +"</td> \
-            </tr> \
-            ";
-          });
-          $team_escalacao.append(escalacao_rows);
+              escalacao_rows += " \
+              <tr> \
+              <td class='athlete_clube'>"+ athlete_clube_escudo +"</td> \
+              <td class='athlete_foto'><img class='img-full' src='"+ athlete_foto.replace("FORMATO", "140x140") +"'></td> \
+              <td class='athlete_nome'>"+ athlete_nome +"</td> \
+              <td class='athlete_posicao'>"+ athlete_posicao +"</td> \
+              <td class='athlete_pontos'>"+ athlete_pontos +"</td> \
+              </tr> \
+              ";
+            });
+            $team_escalacao.append(escalacao_rows);
 
-          // team pontuacao
-          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>"+ pontuacao_label +"</span>");
+            // team pontuacao
+            $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>"+ pontuacao_label +"</span>");
+
+          } else {
+            showMessage();
+          }
 
         } else {
-
-          var message = "";
-          if (typeof request.mensagem !== "undefined" && request.mensagem !== "") {
-            message = request.mensagem;
-          } else {
-            message = "A escalação desse time ainda não pode ser exibida.";
-          }
-          escalacao_rows += "<tr><td class='text-center'>"+ message +"</td></tr>";
-          $team_escalacao.append(escalacao_rows);
-          teamsList("hide");
-          loading("hide");
-          return false;
+          showMessage(request.mensagem);
         }
 
       },
       complete: function() {
         loading("hide");
+        $("#team_info").show();
         formatPontuacao();
         formatPontuacaoTime();
       },
       error: function (error) {
-        alert("Ocorreu algum erro ao consultar os atletas do seu time! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
+        showMessage("Ocorreu algum erro ao consultar os atletas do seu time! Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
         $team_input.focus();
         loading("hide");
         return false;
@@ -300,13 +304,19 @@ $(document).ready(function() {
     }
   }
 
-  function error(data) {
-    var $team_input = $("#team");
-    $team_input.focus();
+  function showMessage(message, type) {
+    var msg_text = "A escalação desse time ainda não pode ser exibida.",
+        msg_type = "info"; // success, info, warning and danger.
+    if (typeof message !== "undefined" && message !== "") {
+      msg_text = message;
+    }
+    if (typeof type !== "undefined" && type !== "") {
+      msg_type = type;
+    }
+    $(".team_escalacao table").html("").append("<tr><td class='text-center "+ msg_type +"'>"+ msg_text +"</td></tr>");
+    teamsList("hide");
     loading("hide");
-    alert(data.error);
   }
-
 
   atletas_pontuados = null;
   rodada_atual = 0;
