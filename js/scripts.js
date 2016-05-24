@@ -173,7 +173,7 @@ $(document).ready(function() {
           }
 
           // rodada label
-          var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontos parciais";
+          var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
 
           var team_pontuacao = 0;
           // loop athletes
