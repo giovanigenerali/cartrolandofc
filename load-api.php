@@ -5,6 +5,7 @@
    * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
    */
 
+  header("Access-Control-Allow-Origin: *");
   header('Content-type: application/json');
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
