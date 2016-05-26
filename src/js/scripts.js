@@ -498,7 +498,7 @@ function searchRows() {
           }
         });
         if (inc == 0) {
-          $("#result_athletes .table").append("<tr id='nenhum-jogador'><td class='text-center info'>Nenhum jogado encontrado.</td></tr>");
+          $("#result_athletes .table").append("<tr id='nenhum-jogador'><td class='text-center info'>Nenhum jogador encontrado.</td></tr>");
         } else {
           $("#result_athletes .table").removeClass("hide");
           $("#nenhum-jogador").remove();
