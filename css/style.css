@@ -1,3 +1,9 @@
+/* Cartrolando FC - http://cartrolandofc.com
+ * https://github.com/wgenial/cartrolandofc
+ * Desenvolvido por WGenial - http://wgenial.com.br
+ * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
+ */
+ 
 /* Space out content a bit */
 body {
   padding-top: 20px;
@@ -140,4 +146,20 @@ body {
 }
 .msg {
   background: #F9F9F9;
+}
+.by-wgenial {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: right;
+}
+.by-wgenial a {
+  color: #999;
+  font-size: 10px !important;
+  text-decoration: none;
+  font-family: "Helvetica";
+  font-weight: 400;
+  text-transform: none !important;
+}
+.by-wgenial a:hover {
+  color: #666;
 }

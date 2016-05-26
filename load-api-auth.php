@@ -1,4 +1,10 @@
 <?php
+  /* Cartrolando FC - http://cartrolandofc.com
+   * https://github.com/wgenial/cartrolandofc
+   * Desenvolvido por WGenial - http://wgenial.com.br
+   * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
+   */
+
   include 'auth.php';
 
   header('Content-type: application/json');

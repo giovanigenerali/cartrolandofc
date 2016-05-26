@@ -1,3 +1,9 @@
+/* Cartrolando FC - http://cartrolandofc.com
+ * https://github.com/wgenial/cartrolandofc
+ * Desenvolvido por WGenial - http://wgenial.com.br
+ * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
+ */
+
 $(document).ready(function() {
 
   function searchTeam() {
@@ -7,7 +13,6 @@ $(document).ready(function() {
     if (team_name === "") {
       showMessage("Digite o nome do seu time para consultar!","warning");
       $("#team_info").hide();
-      $team_input.focus();
       return false;
     }
 
@@ -25,13 +30,13 @@ $(document).ready(function() {
         $("#team_info").hide();
         teamsList("hide");
         $(".team_escalacao table").html("");
+
       },
       success: function(teams) {
         var teams_total = teams.length;
 
         if (teams_total == 0) {
           showMessage("O time que você digitou não foi encontrado, verifique se o nome está correto!","info");
-          $team_input.focus();
           $("#team_info").hide();
           loading("hide");
           return false;
@@ -45,7 +50,6 @@ $(document).ready(function() {
       },
       error: function () {
         showMessage("Ocorreu algum erro ao consultar seu time!<br> Aguarde alguns instantes para uma nova consulta.","danger");
-        $team_input.focus();
         $("#team_info").hide();
         return false;
       }
@@ -91,7 +95,7 @@ $(document).ready(function() {
     teamsList("show");
   }
 
-  function getPontuacao() {
+  function getParciaisRodada() {
     return $.ajax({
       type: "GET",
       contentType: "application/json",
@@ -104,14 +108,35 @@ $(document).ready(function() {
     });
   }
 
-  function statusPontuacao() {
-    getPontuacao().done(function(result) {
+  function statusParciaisRodada() {
+    getParciaisRodada().done(function(result) {
       atletas_pontuados = result.atletas;
-      rodada_atual = result.rodada;
+    });
+  }
+
+  function getMercado() {
+    return $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      dataType: "json",
+      cache: false,
+      url: "load-api.php?api=mercado-status",
+      success: function(data) {
+        return data;
+      }
+    });
+  }
+
+  function statusMercado() {
+    getMercado().done(function(result) {
+      mercado_status = result.status_mercado;
+      rodada_atual = result.rodada_atual;
+      game_over = result.game_over;
     });
   }
 
   function getAthletes(team_slug) {
+
     var $team_input = $("#team"),
         $team_escudo = $(".team_escudo"),
         $team_nome = $(".team_nome h1"),
@@ -142,7 +167,6 @@ $(document).ready(function() {
 
         if (request.length == 0) {
           showMessage("Ocorreu algum erro ao consultar a lista de jogadores!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
-          $team_input.focus();
           return false;
         }
 
@@ -176,7 +200,12 @@ $(document).ready(function() {
             // rodada label
             var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
 
+            // pontuacao total do time
             var team_pontuacao = 0;
+            if (game_over) {
+              team_pontuacao = (request.pontacao == null) ? team_pontuacao : request.pontacao;
+            }
+
             // loop athletes
             $.each(athletes, function(inc, athlete) {
 
@@ -197,12 +226,11 @@ $(document).ready(function() {
               // athlete points
               var athlete_pontos;
 
-              if (atletas_pontuados !== null && typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") {
-                athlete_pontos = atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2);
-                team_pontuacao += atletas_pontuados[athlete.atleta_id].pontuacao;
-              } else if (typeof atletas_pontuados === "undefined") {
+              if (!game_over) {
+                athlete_pontos = (typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2) : "---";
+                team_pontuacao += (typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao : 0;
+              } else if (game_over) {
                 athlete_pontos = athlete.pontos_num.toFixed(2);
-                team_pontuacao += athlete.pontos_num;
               } else {
                 athlete_pontos = "---";
               }
@@ -238,7 +266,6 @@ $(document).ready(function() {
       },
       error: function (error) {
         showMessage("Ocorreu algum erro ao consultar os atletas do seu time!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
-        $team_input.focus();
         return false;
       }
     });
@@ -309,16 +336,20 @@ $(document).ready(function() {
 
   atletas_pontuados = null;
   rodada_atual = 0;
+  mercado_status = 0;
+  game_over = true;
 
   $("#search").on("click", function() {
     searchTeam();
-    statusPontuacao();
+    statusMercado();
+    statusParciaisRodada();
   });
 
   $("#team").keypress(function(e) {
     if (e.which == 13) {
       searchTeam();
-      statusPontuacao();
+      statusMercado();
+      statusParciaisRodada();
     }
   });
 
