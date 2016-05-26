@@ -81,7 +81,7 @@ function showTeamsList(teams, teams_total) {
         <div class='nome'>"+ team_nome +"</div> \
         <div class='cartola'>"+ team_cartoleiro +"</div> \
       </li> \
-    <br>";
+    ";
   }
 
   team_row_content += "</ul>";
