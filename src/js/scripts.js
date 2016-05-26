@@ -12,6 +12,7 @@ function searchTeam() {
     showMessage("Digite o nome do seu time para consultar!","warning");
     $("#team_info").hide();
     teamsList("hide");
+    $("#result_athletes").removeClass("hide");
     return false;
   }
 
@@ -39,10 +40,12 @@ function searchTeam() {
         $("#team_info").hide();
         loading("hide");
         teamsList("hide");
+        $("#result_athletes").removeClass("hide");
         return false;
       } else if (teams_total > 1) {
         showTeamsList(teams, teams_total);
         loading("hide");
+        $("#result_athletes").removeClass("hide");
       } else {
         var team_slug = teams[0].slug;
         getAthletes(team_slug);
@@ -53,6 +56,7 @@ function searchTeam() {
       $("#team_info").hide();
       teamsList("hide");
       loading("hide");
+      $("#result_athletes").removeClass("hide");
       return false;
     }
   });
@@ -173,6 +177,7 @@ function getAthletes(team_slug) {
         showMessage("Ocorreu algum erro ao consultar a lista de jogadores!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
         teamsList("hide");
         loading("hide");
+        $("#result_athletes").removeClass("hide");
         return false;
       }
 
@@ -265,12 +270,14 @@ function getAthletes(team_slug) {
           showMessage("A escalação desse time ainda não pode ser exibida.");
           teamsList("hide");
           loading("hide");
+          $("#result_athletes").removeClass("hide");
         }
 
       } else {
         showMessage(request.mensagem);
         teamsList("hide");
         loading("hide");
+        $("#result_athletes").removeClass("hide");
       }
 
     },
