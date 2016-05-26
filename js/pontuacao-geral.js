@@ -16,12 +16,12 @@ $(document).ready(function() {
         $lista_atletas.html("").hide();
         loading("show");
         $("#search").addClass("hide");
+        $("#refresh").addClass("hide");
       },
       success: function(request) {
 
         if (request.length == 0) {
-          alert("Ocorreu algum erro ao consultar a pontuação dos jogadores! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
-          loading("hide");
+          showMessage("Ocorreu algum erro ao consultar os atletas da rodada atual!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
           return false;
         }
 
@@ -100,15 +100,17 @@ $(document).ready(function() {
         loading("hide");
         if (message != "") {
           $("#search").addClass("hide");
+          $("#refresh").addClass("hide");
         } else {
           $("#search").removeClass("hide");
+          $("#refresh").removeClass("hide");
           searchRows();
         }
       },
       error: function (error) {
-        alert("Ocorreu algum erro ao consultar os atletas da rodada atual! Tente novamente ou aguarde alguns instantes para uma nova consulta...");
-        loading("hide");
+        showMessage("Ocorreu algum erro ao consultar os atletas da rodada atual!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
         $("#search").addClass("hide");
+        $("#refresh").addClass("hide");
         $rodada_atual.html("").hide();
         $lista_atletas.html("").hide();
         return false;
@@ -160,5 +162,18 @@ $(document).ready(function() {
       $("#search").addClass("hide");
     }
   }
+
+  function showMessage(message, type) {
+    var msg_type = "info"; // success, info, warning and danger.
+    if (typeof type !== "undefined" && type !== "") {
+      msg_type = type;
+    }
+    $(".team_escalacao table").html("").append("<tr><td class='text-center "+ msg_type +"'>"+ message +"</td></tr>");
+    loading("hide");
+  }
+
+  $("#refresh").on("click", function() {
+    window.location.reload();
+  });
 
 });

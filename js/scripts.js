@@ -7,7 +7,6 @@ $(document).ready(function() {
     if (team_name === "") {
       showMessage("Digite o nome do seu time para consultar!","warning");
       $("#team_info").hide();
-      teamsList("hide");
       $team_input.focus();
       return false;
     }
@@ -33,27 +32,21 @@ $(document).ready(function() {
         if (teams_total == 0) {
           showMessage("O time que você digitou não foi encontrado, verifique se o nome está correto!","info");
           $team_input.focus();
-          loading("hide");
           $("#team_info").hide();
-          teamsList("hide");
+          loading("hide");
           return false;
         } else if (teams_total > 1) {
-          // $("#team_info").show();
           showTeamsList(teams, teams_total);
+          loading("hide");
         } else {
           var team_slug = teams[0].slug;
           getAthletes(team_slug);
         }
       },
-      complete: function() {
-        loading("hide");
-      },
       error: function () {
-        showMessage("Ocorreu algum erro ao consultar seu time!\n Aguarde alguns instantes para uma nova consulta.","danger");
+        showMessage("Ocorreu algum erro ao consultar seu time!<br> Aguarde alguns instantes para uma nova consulta.","danger");
         $team_input.focus();
         $("#team_info").hide();
-        teamsList("hide");
-        loading("hide");
         return false;
       }
     });
@@ -82,7 +75,7 @@ $(document).ready(function() {
           <div class='nome'>"+ team_nome +"</div> \
           <div class='cartola'>"+ team_cartoleiro +"</div> \
         </li> \
-      \n";
+      <br>";
     }
 
     team_row_content += "</ul>";
@@ -137,21 +130,19 @@ $(document).ready(function() {
         team_slug: team_slug
       },
       beforeSend: function() {
+        loading("show");
         $team_escudo.html("");
         $team_nome.html("");
         $team_cartola.html("");
         $team_rodada.html("");
         $team_pontuacao.html("");
         $team_escalacao.html("");
-
-        loading("show");
       },
       success: function(request) {
 
         if (request.length == 0) {
-          showMessage("Ocorreu algum erro ao consultar a lista de jogadores!\n Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
+          showMessage("Ocorreu algum erro ao consultar a lista de jogadores!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
           $team_input.focus();
-          loading("hide");
           return false;
         }
 
@@ -231,6 +222,11 @@ $(document).ready(function() {
             // team pontuacao
             $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>"+ pontuacao_label +"</span>");
 
+            formatPontuacao();
+            formatPontuacaoTime();
+            $("#team_info").show();
+            loading("hide");
+
           } else {
             showMessage();
           }
@@ -240,16 +236,9 @@ $(document).ready(function() {
         }
 
       },
-      complete: function() {
-        loading("hide");
-        $("#team_info").show();
-        formatPontuacao();
-        formatPontuacaoTime();
-      },
       error: function (error) {
-        showMessage("Ocorreu algum erro ao consultar os atletas do seu time! Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
+        showMessage("Ocorreu algum erro ao consultar os atletas do seu time!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
         $team_input.focus();
-        loading("hide");
         return false;
       }
     });
