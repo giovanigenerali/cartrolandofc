@@ -3,7 +3,7 @@
  * Desenvolvido por WGenial - http://wgenial.com.br
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
- 
+
 @media screen and (max-width: 767px) {
   .jumbotron h1 {
     font-size: 28px !important;
@@ -45,9 +45,11 @@
     width: auto;
     margin: 0;
   }
+  #team_info {
+    margin-bottom: 0;
+  }
   .table-responsive {
     border: none !important;
-    margin-top: 20px !important;
   }
   .team_escalacao td {
     padding: 10px 8px !important;

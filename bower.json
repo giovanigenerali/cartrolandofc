@@ -1,0 +1,25 @@
+{
+  "name": "cartrolandofc.com",
+  "authors": [
+    "WGenial (wgenial.com.br)"
+  ],
+  "description": "Pontuação parcial do seu time no CartolaFC",
+  "main": "",
+  "keywords": [
+    "cartolafc",
+    "futebol",
+    "cartrolandofc"
+  ],
+  "license": "MIT",
+  "homepage": "http://cartrolandofc.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

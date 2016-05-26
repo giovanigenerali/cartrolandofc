@@ -1,0 +1,36 @@
+{
+  "name": "cartrolandofc.com",
+  "version": "1.0.0",
+  "description": "Cartrolando FC é um site para consultar os pontos parciais do seu time no CartolaFC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wgenial/cartrolandofc.git"
+  },
+  "keywords": [
+    "cartolafc",
+    "futebol",
+    "cartrolandofc"
+  ],
+  "author": "WGenial http://wgenial.com.br",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wgenial/cartrolandofc/issues"
+  },
+  "homepage": "https://github.com/wgenial/cartrolandofc#readme",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-bower": "0.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-contrib-clean": "0.0.2",
+    "gulp-copy": "0.0.2",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-notify": "^2.2.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.6"
+  }
+}

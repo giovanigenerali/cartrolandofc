@@ -3,12 +3,6 @@
  * Desenvolvido por WGenial - http://wgenial.com.br
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
- 
-#loading {
-  display: none;
-  text-align: center;
-}
-
 #teams_list {
   display: none;
   border: 1px solid #ccc;
@@ -50,6 +44,10 @@
   font-style: italic;
   color: #999;
   padding-top: 5px;
+}
+
+#team_info {
+  margin-bottom: 20px;
 }
 
 input.team {
@@ -106,7 +104,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
 }
 
 .team_escalacao {
-  margin: 20px auto 0 auto;
+  margin: 0 auto 20px auto;
 }
 .team_escalacao table {
   width: 100% !important;
@@ -118,6 +116,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:act
   vertical-align: initial !important;
   line-height: initial !important;
   white-space: normal !important;
+}
+.team_escalacao table tr:last-child td {
+  border-bottom: 1px dotted #ddd !important;
 }
 .athlete_foto img {
   border: 1px solid #DDD;

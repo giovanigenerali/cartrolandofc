@@ -3,7 +3,7 @@
  * Desenvolvido por WGenial - http://wgenial.com.br
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
- 
+
 /* Space out content a bit */
 body {
   padding-top: 20px;
@@ -57,30 +57,29 @@ body {
   border-bottom: 1px solid #e5e5e5 !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
-  margin-bottom: 0 !important;
+  margin-bottom: 20px !important;
 }
 .jumbotron h1 {
-  font-size: 40px !important;
-  text-transform: uppercase;
+  font-size: 3em !important;
+  font-weight: 600;
 }
 .jumbotron p {
   font-size: 18px !important;
 }
+.jumbotron p.lead {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  box-shadow: 0px 1px 0px #FFF;
+}
 .jumbotron .btn {
-  padding: 14px 24px;
-  font-size: 18px;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 16px;
 }
 .jumbotron a {
   font-size: 0.8em;
   font-weight: bold;
   text-transform: uppercase;
-}
-/* Supporting result content */
-.result {
-  margin: 40px 0;
-}
-.result p + h4 {
-  margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -102,6 +101,8 @@ body {
   }
 }
 
+
+/* Github */
 .forkmegithub {
   position: absolute;
   top: 0;
@@ -112,7 +113,7 @@ body {
 /* Social buttons */
 .social {
   text-align: center;
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 .social div {
   display: inline-block;
@@ -134,7 +135,7 @@ body {
 
 /* Rodada atual */
 .rodada-atual {
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
@@ -144,9 +145,8 @@ body {
   border-top-right-radius: 6px;
   line-height: 1.5em;
 }
-.msg {
-  background: #F9F9F9;
-}
+
+/* Developer */
 .by-wgenial {
   margin: 0 !important;
   padding: 0 !important;
@@ -162,4 +162,11 @@ body {
 }
 .by-wgenial a:hover {
   color: #666;
+}
+
+/* Loading */
+#loading {
+  display: none;
+  text-align: center;
+  margin-bottom: 20px;
 }
