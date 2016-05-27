@@ -381,39 +381,43 @@ function getPontuacaoAtletas() {
 
         $.each(atletas, function(inc, atleta) {
 
-          // escludo clube
-          var atleta_clube_escudo = "", clube_escudo45x45 = "";
-          if (atleta.clube_id != 1) {
-            clube_escudo45x45 = request.clubes[atleta.clube_id].escudos['45x45'];
-            if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
-              atleta_clube_escudo = "<img src='"+ clube_escudo45x45 +"'>";
+          // atleta existe
+          if (atleta.apelido != "") {
+
+            // escludo clube
+            var atleta_clube_escudo = "", clube_escudo45x45 = "";
+            if (atleta.clube_id != 1) {
+              clube_escudo45x45 = request.clubes[atleta.clube_id].escudos['45x45'];
+              if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
+                atleta_clube_escudo = "<img src='"+ clube_escudo45x45 +"'>";
+              }
             }
+
+            // atleta info
+            var atleta_posicao = request.posicoes[atleta.posicao_id].abreviacao.toUpperCase(),
+                atleta_nome = (atleta.apelido == "" ? "---" : atleta.apelido.toUpperCase());
+
+            // atleta foto
+            var atleta_foto = atleta.foto, atleta_foto80x80 = "";
+            if (atleta_foto !== "" && atleta_foto !== null) {
+              atleta_foto80x80 = "<img class='img-full' src='"+ atleta_foto.replace("FORMATO", "140x140") +"'>";
+            } else {
+              atleta_foto80x80 = "<img class='img-full' src='images/foto-jogador.svg'>";
+            }
+
+            // athlete pontuacao
+            var atleta_pontuacao = atleta.pontuacao.toFixed(2);
+
+            atletas_rows += " \
+            <tr> \
+            <td class='athlete_clube'>"+ atleta_clube_escudo +"</td> \
+            <td class='athlete_foto'>"+ atleta_foto80x80 +"</td> \
+            <td class='athlete_nome'>"+ atleta_nome +"</td> \
+            <td class='athlete_posicao'>"+ atleta_posicao +"</td> \
+            <td class='athlete_pontos'>"+ atleta_pontuacao +"</td> \
+            </tr> \
+            ";
           }
-
-          // atleta info
-          var atleta_posicao = request.posicoes[atleta.posicao_id].abreviacao.toUpperCase(),
-              atleta_nome = (atleta.apelido == "" ? "---" : atleta.apelido.toUpperCase());
-
-          // atleta foto
-          var atleta_foto = atleta.foto, atleta_foto80x80 = "";
-          if (atleta_foto !== "" && atleta_foto !== null) {
-            atleta_foto80x80 = "<img class='img-full' src='"+ atleta_foto.replace("FORMATO", "140x140") +"'>";
-          } else {
-            atleta_foto80x80 = "<img class='img-full' src='images/foto-jogador.svg'>";
-          }
-
-          // athlete pontuacao
-          var atleta_pontuacao = atleta.pontuacao.toFixed(2);
-
-          atletas_rows += " \
-          <tr> \
-          <td class='athlete_clube'>"+ atleta_clube_escudo +"</td> \
-          <td class='athlete_foto'>"+ atleta_foto80x80 +"</td> \
-          <td class='athlete_nome'>"+ atleta_nome +"</td> \
-          <td class='athlete_posicao'>"+ atleta_posicao +"</td> \
-          <td class='athlete_pontos'>"+ atleta_pontuacao +"</td> \
-          </tr> \
-          ";
         });
 
         $lista_atletas.append(atletas_rows).show();
