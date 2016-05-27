@@ -238,8 +238,8 @@ function getAthletes(team_slug) {
             var athlete_pontos;
 
             if (!game_over) {
-              athlete_pontos = (typeof atletas_pontuados !== "undefined" && atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2) : "---";
-              team_pontuacao += (typeof atletas_pontuados !== "undefined" && atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao : 0;
+              athlete_pontos = (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2) : "---";
+              team_pontuacao += (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao : 0;
             } else if (game_over) {
               athlete_pontos = athlete.pontos_num.toFixed(2);
             } else {
