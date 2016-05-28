@@ -2,3 +2,4 @@
 vendor/*
 bower_components/*
 node_modules/*
+json/*
