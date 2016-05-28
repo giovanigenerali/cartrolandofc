@@ -412,7 +412,7 @@ function getPontuacaoAtletas() {
 
             // atleta info
             var athlete_nome = (athlete.apelido == "" ? "-" : athlete.apelido.toUpperCase()),
-                athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase();
+                athlete_posicao = request.posicoes[athlete.posicao_id].nome.toUpperCase();
 
             // athlete pontuacao
             var athlete_pontuacao = athlete.pontuacao.toFixed(2);
