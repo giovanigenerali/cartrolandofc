@@ -355,10 +355,10 @@ function teamsList(status) {
 function getPontuacaoAtletas() {
   var $lista_atletas = $("#team_escalacao table"),
       $rodada_atual = $(".rodada-atual"),
-      $input_search_atleta = $("#search-atleta"),
+      $search_atleta = $("#search-atleta"),
       $btn_load_pontuacao = $("#load-pontuacao"),
       $btn_refresh_pontuacao = $("#refresh-pontuacao"),
-      message = "";;
+      message = "";
 
   $.ajax({
     type: "GET",
@@ -369,7 +369,7 @@ function getPontuacaoAtletas() {
       api: "parciais-atletas"
     },
     beforeSend: function() {
-      $input_search_atleta.addClass("hide");
+      $search_atleta.addClass("hide").find("#atleta").val("");
       $rodada_atual.html("").addClass("hide");
       $lista_atletas.html("").hide();
       loading("show");
@@ -457,12 +457,12 @@ function getPontuacaoAtletas() {
     complete: function() {
       loading("hide");
       if (message != "") {
-        $input_search_atleta.addClass("hide");
+        $search_atleta.addClass("hide");
         $btn_load_pontuacao.addClass("hide");
         $btn_refresh_pontuacao.removeClass("hide");
         $rodada_atual.addClass("hide");
       } else {
-        $input_search_atleta.removeClass("hide");
+        $search_atleta.removeClass("hide");
         $btn_load_pontuacao.addClass("hide");
         $btn_refresh_pontuacao.removeClass("hide");
         $rodada_atual.removeClass("hide");
@@ -471,7 +471,7 @@ function getPontuacaoAtletas() {
     },
     error: function (error) {
       showMessage("Ocorreu algum erro ao consultar os atletas da rodada atual!<br> Tente novamente ou aguarde alguns instantes para uma nova consulta...","danger");
-      $input_search_atleta.addClass("hide");
+      $search_atleta.addClass("hide");
       $btn_load_pontuacao.removeClass("hide");
       $btn_refresh_pontuacao.addClass("hide");
       $rodada_atual.html("").addClass("hide");
