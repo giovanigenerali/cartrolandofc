@@ -21,12 +21,15 @@
     <meta name="description" content="Consulte os pontos parciais do seu time no CartolaFC">
     <link rel="apple-touch-icon" href="images/favicon-180x180.png">
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
-    <link href="/build/css/styles-1464300915.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
+    <link href="/build/css/styles-1464451390.min.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
     <a href="https://github.com/wgenial/cartrolandofc"><img class="forkmegithub" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
     <div class="container">
+
       <div class="jumbotron">
         <h1>CartrolandoFC</h1>
         <p class="lead">Consulte os pontos parciais do seu time na rodada atual do Cartola FC.</p>
@@ -36,23 +39,32 @@
         <p><button type="button" id="search-team" class="btn btn-lg btn-success">Consultar time</button></p>
         <p class="by-wgenial"><a href="http://wgenial.com.br" target="_blank">Desenvolvido por WGenial</a></p>
       </div>
+
       <div class="row result">
+
         <div id="loading">
           <img src="images/loading.gif">
         </div>
+
         <div id="result_athletes" class="col-lg-12 hide">
-          <div id="team_info" class="row">
-            <div class="team_escudo"></div>
-            <div class="team_nome">
-              <h1></h1>
-              <h3></h3>
+
+          <div id="team_info_wrapper" class="row">
+
+            <div id="team_escudo" class="col-lg-2"></div>
+
+            <div id="team_info" class="col-lg-8">
+              <div class="team_nome"></div>
+              <div class="team_patrimonio"></div>
             </div>
-            <div class="team_rodata_pontuacao">
+
+            <div id="team_rodada_pontuacao" class="col-lg-2">
               <div class="team_rodada"></div>
               <div class="team_pontuacao"></div>
             </div>
+
           </div>
-          <div class="table-responsive team_escalacao">
+
+          <div id="team_escalacao" class="table-responsive">
             <table class="table table-striped"></table>
           </div>
         </div>
@@ -68,7 +80,7 @@
         <p>Caso tenha alguma sugestão de melhoria, dúvida ou encontre algum erro <a href="https://github.com/wgenial/cartrolandofc/issues">envie por aqui</a>.</p>
       </footer>
     </div>
-    <script src="/build/js/scripts-1464323241.min.js" type="text/javascript"></script>
+    <script src="/build/js/scripts-1464451704.min.js" type="text/javascript"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -6,9 +6,11 @@
 
 /* Space out content a bit */
 body {
+  font-family: 'Lato', serif;
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .result,
@@ -22,6 +24,7 @@ body {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
@@ -47,9 +50,6 @@ body {
     max-width: 730px;
   }
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
 
 /* Main result message and sign up button */
 .jumbotron {
@@ -61,14 +61,16 @@ body {
 }
 .jumbotron h1 {
   font-size: 3em !important;
-  font-weight: 600;
+  font-weight: 700;
+  margin: 0;
 }
 .jumbotron p {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 .jumbotron p.lead {
+  font-size: 16px;
   border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   box-shadow: 0px 1px 0px #FFF;
 }
 .jumbotron .btn {
@@ -78,7 +80,7 @@ body {
 }
 .jumbotron a {
   font-size: 0.8em;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -137,7 +139,7 @@ body {
 .rodada-atual {
   font-size: 1.2em;
   text-align: center;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 8px 0;
   background: #EFEFEF;
@@ -155,13 +157,17 @@ body {
 .by-wgenial a {
   color: #999;
   font-size: 10px !important;
-  text-decoration: none;
-  font-family: "Helvetica";
   font-weight: 400;
+  text-decoration: none;
   text-transform: none !important;
 }
 .by-wgenial a:hover {
   color: #666;
+}
+
+/* Message */
+#team_escalacao td.msg {
+  padding: 10px !important;
 }
 
 /* Loading */

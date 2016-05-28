@@ -3,6 +3,22 @@
  * Desenvolvido por WGenial - http://wgenial.com.br
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
+
+ /* INPUT */
+ input.team {
+   padding: 24px 20px !important;
+   font-size: 24px !important;
+   background: #fff !important;
+ }
+ input.team:focus {
+   border-color: none !important;
+   box-shadow: none !important;
+ }
+ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:active, input:-webkit-autofill:focus {
+     -webkit-box-shadow: 0 0 0 1000px white inset;
+ }
+
+/* TEAM LIST */
 #teams_list {
   display: none;
   border: 1px solid #ccc;
@@ -46,106 +62,133 @@
   padding-top: 5px;
 }
 
-#team_info {
+/* TEAM INFO WRAPPER */
+#team_info_wrapper {
   margin-bottom: 20px;
+  position: relative;
 }
 
-input.team {
-  padding: 24px 20px !important;
-  font-size: 24px !important;
-  background: #fff !important;
-}
-input.team:focus {
-  border-color: none !important;
-  box-shadow: none !important;
-}
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:active, input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px white inset;
-}
+  /* TEAM ESCUDO */
+  #team_escudo img {
+    max-height: 100px;
+  }
 
-.team_escudo {
-  float: left;
-}
-.team_escudo img {
-  max-height: 100px;
-  margin: 0 14px;
-}
+  /* TEAM INFO */
+  #team_info .team_nome  {
+    float: left;
+    margin-bottom: 16px;
+  }
+    #team_info .team_nome h1 {
+      font-size: 28px;
+      line-height: 28px;
+      font-weight: 900;
+      margin: 0 0 4px 0;
+    }
+    #team_info .team_nome h3 {
+      color: #777;
+      font-size: 16px;
+      margin: 0;
+      line-height: 16px;
+    }
+  #team_info .team_patrimonio {
+    clear: left;
+  }
+    #team_info .team_patrimonio .patrimonio-total {
+      font-family: 'Roboto Slab',sans-serif;
+      font-size: 26px;
+      display: block;
+      line-height: 26px;
+      letter-spacing: -0.04em;
+    }
+    #team_info .team_patrimonio .patrimonio-label {
+      display: block;
+      margin: 4px 0 0 0;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #666;
+      line-height: 12px;
+    }
 
-.team_nome {
-  float: left;
-}
-.team_nome h1 {
-  font-size: 28px;
-}
-.team_nome h3 {
-  margin: -8px 0 0 0;
-  font-size: 16px;
-  color: #777;
-}
+  /* TEAM RODADA / PONTUACAO */
+  #team_rodada_pontuacao {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  #team_rodada_pontuacao .team_rodada {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+    #team_rodada_pontuacao .team_pontuacao .pontos-total {
+      display: block;
+      font-family: 'Roboto Slab', sans-serif;
+      font-size: 26px;
+      line-height: 26px;
+      letter-spacing: -0.04em;
+    }
+    #team_rodada_pontuacao .team_pontuacao .pontuacao-label {
+      display: block;
+      margin: 4px 0 0 0;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #777;
+      line-height: 12px;
+    }
 
-.team_rodata_pontuacao {
-  float: right;
-  text-align: right;
-  margin: 20px 20px 0 0;
-}
-.team_rodata_pontuacao .team_rodada {
-  font-weight: bold;
-}
-.team_rodata_pontuacao .team_pontuacao .pontos-label {
-  font-size: 30px;
-  display: block;
-}
-.team_rodata_pontuacao .team_pontuacao .pontuacao-label {
-  display: block;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 12px;
-  color: #777;
-}
 
-.team_escalacao {
+#team_escalacao {
   margin: 0 auto 20px auto;
 }
-.team_escalacao table {
+#team_escalacao table {
   width: 100% !important;
   margin: 0 auto !important;
 }
-.team_escalacao td {
-  padding: 8px 18px !important;
+#team_escalacao td {
+  padding: 10px 20px 0 20px !important;
   border-top: 1px dotted #ddd !important;
-  vertical-align: initial !important;
   line-height: initial !important;
   white-space: normal !important;
 }
-.team_escalacao table tr:last-child td {
+#team_escalacao table tr:last-child td {
   border-bottom: 1px dotted #ddd !important;
 }
-.athlete_foto img {
-  border: 1px solid #DDD;
+#team_escalacao .athlete_clube {
+  display: block;
+  width: 36px;
+  position: absolute;
+}
+#team_escalacao .athlete_clube img {
+  width: 100%;
+}
+#team_escalacao .athlete_foto {
+  display: block;
+  text-align: center;
+}
+#team_escalacao .athlete_foto img {
   width: 50%;
 }
-.athlete_foto .img-full {
-  border: none;
-  width: 50%;
-  position: relative;
-  bottom: -8px;
+#team_escalacao .athlete_nome_label {
+  font-weight: 900;
+  font-size: 18px;
+  display: block;
 }
-.athlete_pontos {
-  color: #3ea909;
+#team_escalacao .athlete_posicao_label {
+  font-size: 12px;
+  color: #666;
 }
-.athlete_pontos.neutro {
+#team_escalacao .athlete_pontos {
   color: #000;
+  font-family: 'Roboto Slab', sans-serif;
+  font-size: 1.286em;
+  text-align: center;
 }
-.athlete_pontos.negativo {
-  color: #f00;
+.positivo {
+  color: #3ea909 !important;
 }
-
-.pontos-label.positivo {
-  color: #3ea909;
-}
-.pontos-label.neutro {
-  color: #000;
-}
-.pontos-label.negativo {
-  color: #f00;
+.negativo {
+  color: #f00 !important;
 }

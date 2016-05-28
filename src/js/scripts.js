@@ -10,7 +10,7 @@ function searchTeam() {
 
   if (team_name === "") {
     showMessage("Digite o nome do seu time para consultar!","warning");
-    $("#team_info").hide();
+    $("#team_info_wrapper").hide();
     teamsList("hide");
     $("#result_athletes").removeClass("hide");
     return false;
@@ -27,9 +27,9 @@ function searchTeam() {
     },
     beforeSend: function() {
       loading("show");
-      $("#team_info").hide();
+      $("#team_info_wrapper").hide();
       teamsList("hide");
-      $(".team_escalacao table").html("");
+      $("#team_escalacao table").html("");
 
     },
     success: function(teams) {
@@ -37,7 +37,7 @@ function searchTeam() {
 
       if (teams_total == 0) {
         showMessage("O time que você digitou não foi encontrado, verifique se o nome está correto!","info");
-        $("#team_info").hide();
+        $("#team_info_wrapper").hide();
         loading("hide");
         teamsList("hide");
         $("#result_athletes").removeClass("hide");
@@ -53,7 +53,7 @@ function searchTeam() {
     },
     error: function () {
       showMessage("Ocorreu algum erro ao consultar seu time!<br> Aguarde alguns instantes para uma nova consulta.","danger");
-      $("#team_info").hide();
+      $("#team_info_wrapper").hide();
       teamsList("hide");
       loading("hide");
       $("#result_athletes").removeClass("hide");
@@ -137,20 +137,20 @@ function statusMercado() {
   getMercado().done(function(result) {
     mercado_status = result.status_mercado;
     rodada_atual = result.rodada_atual;
-    game_over = result.game_over;
+    mercado_pos_rodada = result.mercado_pos_rodada;
   });
 }
 
 function getAthletes(team_slug) {
 
   var $team_input = $("#team-name"),
-      $team_escudo = $(".team_escudo"),
-      $team_nome = $(".team_nome h1"),
-      $team_cartola = $(".team_nome h3"),
+      $team_escudo = $("#team_escudo"),
+      $team_nome = $(".team_nome"),
+      $team_patrimonio = $(".team_patrimonio"),
       $team_rodada = $(".team_rodada"),
       $team_pontuacao = $(".team_pontuacao"),
       $result_athletes = $("#result_athletes"),
-      $team_escalacao = $(".team_escalacao table");
+      $team_escalacao = $("#team_escalacao table");
 
   $.ajax({
     type: "GET",
@@ -165,9 +165,9 @@ function getAthletes(team_slug) {
       loading("show");
       $team_escudo.html("");
       $team_nome.html("");
-      $team_cartola.html("");
       $team_rodada.html("");
       $team_pontuacao.html("");
+      $team_patrimonio.html("");
       $team_escalacao.html("");
       $result_athletes.addClass("hide");
     },
@@ -191,11 +191,10 @@ function getAthletes(team_slug) {
         var team_escudo = (team.url_escudo_png == "" ? "" : "<img src="+ team.url_escudo_png +">"),
             team_nome = (team.nome == "" ? "" : team.nome),
             team_cartola = (team.nome_cartola == "" ? "" : team.nome_cartola),
-            team_patrimonio = (team.patrimonio == "" ? "" : team.patrimonio);
+            team_patrimonio = (request.patrimonio == "" ? "" : request.patrimonio);
 
         $team_escudo.html(team_escudo);
-        $team_nome.html(team_nome);
-        $team_cartola.html(team_cartola);
+        $team_nome.html("<h1>"+ team_nome +"</h1><h3>"+ team_cartola +"</h3>");
       }
 
       // athletes
@@ -203,24 +202,21 @@ function getAthletes(team_slug) {
 
         if (athletes.length > 0) {
 
-          var team_rodada = (typeof rodada_atual !== "undefined") ? rodada_atual : athletes[0].rodada_id;
-          if (team_rodada != "") {
-            $team_rodada.html(team_rodada + "ª Rodada");
-          }
-
-          // rodada label
-          var pontuacao_label = (typeof atletas_pontuados !== "undefined") ? "Pontos parciais" : "Pontuação";
+          // rodada info
+          var team_rodada = (mercado_status == 1) ? athletes[0].rodada_id : rodada_atual;
+          $team_rodada.html(team_rodada + "ª Rodada");
+          var pontuacao_label = (mercado_status == "1") ? "Pontuação" : "Pontos parciais";
 
           // pontuacao total do time
           var team_pontuacao = 0;
-          if (game_over) {
-            team_pontuacao = (request.pontacao == null) ? team_pontuacao : request.pontacao;
+          if (mercado_status == 1) {
+            team_pontuacao = (request.pontos == null) ? team_pontuacao : request.pontos;
           }
 
-          // loop athletes
+          // loop nos atletas
           $.each(athletes, function(inc, athlete) {
 
-            // escludo clube
+            // escudo clube
             var athlete_clube_escudo = "", clube_escudo45x45 = "";
             if (athlete.clube_id != 1) {
               clube_escudo45x45 = request.clubes[athlete.clube_id].escudos['45x45'];
@@ -229,41 +225,53 @@ function getAthletes(team_slug) {
               }
             }
 
-            // athlete info
+            // atletas inforacoes (foto, posicao e nome)
             var athlete_foto = athlete.foto,
-                athlete_posicao = request.posicoes[athlete.posicao_id].abreviacao.toUpperCase(),
-                athlete_nome = (athlete.apelido == "" ? "---" : athlete.apelido.toUpperCase());
+                athlete_posicao = request.posicoes[athlete.posicao_id].nome.toUpperCase(),
+                athlete_nome = (athlete.apelido == "" ? "-" : athlete.apelido.toUpperCase());
 
-            // athlete points
+            // atletas pontuacao
             var athlete_pontos;
 
-            if (!game_over) {
-              athlete_pontos = (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2) : "---";
-              team_pontuacao += (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao : 0;
-            } else if (game_over) {
+            // mercado fechado, pega pontuacao dos atletas da rodada em andamento
+            if (mercado_status == 2) {
+              athlete_pontos = (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao.toFixed(2) : "0.00";
+              team_pontuacao += (typeof atletas_pontuados !== "undefined" && typeof atletas_pontuados[athlete.atleta_id] !== "undefined") ? atletas_pontuados[athlete.atleta_id].pontuacao : 0.00;
+            // mercado aberto, pega pontuacao dos atletas da rodada anterior
+          } else if (mercado_status == 1) {
               athlete_pontos = athlete.pontos_num.toFixed(2);
+            // fallback, atleta sem pontuacao
             } else {
-              athlete_pontos = "---";
+              athlete_pontos = "-";
             }
 
             escalacao_rows += " \
             <tr> \
-            <td class='athlete_clube'>"+ athlete_clube_escudo +"</td> \
-            <td class='athlete_foto'><img class='img-full' src='"+ athlete_foto.replace("FORMATO", "140x140") +"'></td> \
-            <td class='athlete_nome'>"+ athlete_nome +"</td> \
-            <td class='athlete_posicao'>"+ athlete_posicao +"</td> \
-            <td class='athlete_pontos'>"+ athlete_pontos +"</td> \
+              <td> \
+                <div class='athlete_clube'>"+ athlete_clube_escudo +"</div> \
+                <div class='athlete_foto'><img src='"+ athlete_foto.replace("FORMATO", "140x140") +"'></div> \
+              </td> \
+              <td class='athlete_nome_posicao'> \
+                <span class='athlete_nome_label'>"+ athlete_nome +"</span> \
+                <span class='athlete_posicao_label'>"+ athlete_posicao +"</span> \
+              </td> \
+              <td class='athlete_pontos'>"+ athlete_pontos +"</td> \
             </tr> \
             ";
           });
+
           $team_escalacao.append(escalacao_rows);
 
-          // team pontuacao
-          $team_pontuacao.html("<span class='pontos-label'>"+ team_pontuacao.toFixed(2) + "</span> <span class='pontuacao-label'>"+ pontuacao_label +"</span>");
+          // time pontuacao
+          $team_pontuacao.html("<div class='pontos-total'>"+ team_pontuacao.toFixed(2) + "</div> <div class='pontuacao-label'>"+ pontuacao_label +"</div>");
 
-          formatPontuacao();
+          // time patrimonio
+          $team_patrimonio.html("<div class='patrimonio-total'>C$ "+ team_patrimonio.toFixed(2) + "</div> <div class='patrimonio-label'>Patrimôminio</div>");
+
           formatPontuacaoTime();
-          $("#team_info").show();
+          formatPontuacaoAtletas();
+
+          $("#team_info_wrapper").show();
           loading("hide");
 
         } else {
@@ -294,28 +302,22 @@ function getAthletes(team_slug) {
   });
 }
 
-function formatPontuacao() {
+function formatPontuacaoAtletas() {
   $(".athlete_pontos").each(function() {
-    $(this).removeClass("neutro negativo");
-
-    if ($(this).html().indexOf("---") == 0) {
-      $(this).addClass("neutro");
-    } else if ($(this).html().indexOf("-") == 0) {
+    if ($(this).html().indexOf("-") == 0) {
       $(this).addClass("negativo");
+    } else if ($(this).html().indexOf("-") == -1) {
+      $(this).addClass("positivo");
     }
   });
 }
 
 function formatPontuacaoTime() {
-  var $pts_label = $(".pontos-label");
-  if ($pts_label.size() > 0) {
-    if ($pts_label.html().indexOf("---") == 0) {
-      $pts_label.addClass("neutro");
-    } else if ($pts_label.html().indexOf("-") == 0) {
-      $pts_label.addClass("negativo");
-    } else {
-      $pts_label.addClass("positivo");
-    }
+  var $pts_label = $(".pontos-total");
+  if ($pts_label.html().indexOf("-") == 0) {
+    $pts_label.addClass("negativo");
+  } else if ($pts_label.html().indexOf("-") == -1) {
+    $pts_label.addClass("positivo");
   }
 }
 
@@ -344,7 +346,7 @@ function teamsList(status) {
 }
 
 function getPontuacaoAtletas() {
-  var $lista_atletas = $(".team_escalacao table"),
+  var $lista_atletas = $("#team_escalacao table"),
       $rodada_atual = $(".rodada-atual"),
       $input_search_atleta = $("#search-atleta"),
       $btn_load_pontuacao = $("#load-pontuacao"),
@@ -395,14 +397,14 @@ function getPontuacaoAtletas() {
 
             // atleta info
             var atleta_posicao = request.posicoes[atleta.posicao_id].abreviacao.toUpperCase(),
-                atleta_nome = (atleta.apelido == "" ? "---" : atleta.apelido.toUpperCase());
+                atleta_nome = (atleta.apelido == "" ? "-" : atleta.apelido.toUpperCase());
 
             // atleta foto
             var atleta_foto = atleta.foto, atleta_foto80x80 = "";
             if (atleta_foto !== "" && atleta_foto !== null) {
-              atleta_foto80x80 = "<img class='img-full' src='"+ atleta_foto.replace("FORMATO", "140x140") +"'>";
+              atleta_foto80x80 = "<img src='"+ atleta_foto.replace("FORMATO", "140x140") +"'>";
             } else {
-              atleta_foto80x80 = "<img class='img-full' src='images/foto-jogador.svg'>";
+              atleta_foto80x80 = "<img src='images/foto-jogador.svg'>";
             }
 
             // athlete pontuacao
@@ -430,23 +432,12 @@ function getPontuacaoAtletas() {
         } else {
           message = "A escalação desse time ainda não pode ser exibida.";
         }
-        atletas_rows += "<tr><td class='text-center msg'>"+ message +"</td></tr>";
+        showMessage(message, "info");
         $lista_atletas.append(atletas_rows).show();
         $rodada_atual.addClass("hide");
         loading("hide");
         return false;
       }
-
-      // config pontuacao
-      $(".athlete_pontos").each(function() {
-        $(this).removeClass("neutro negativo");
-
-        if ($(this).html().indexOf("---") == 0) {
-          $(this).addClass("neutro");
-        } else if ($(this).html().indexOf("-") == 0) {
-          $(this).addClass("negativo");
-        }
-      })
 
     },
     complete: function() {
@@ -482,7 +473,7 @@ function showMessage(message, type) {
   if (typeof type !== "undefined" && type !== "") {
     msg_type = type;
   }
-  $(".team_escalacao table").html("").append("<tr><td class='text-center "+ msg_type +"'>"+ message +"</td></tr>");
+  $("#team_escalacao table").html("").append("<tr><td class='text-center msg "+ msg_type +"'>"+ message +"</td></tr>");
 }
 
 function searchRows() {
@@ -523,7 +514,7 @@ function searchRows() {
 atletas_pontuados = null;
 rodada_atual = 0;
 mercado_status = 0;
-game_over = true;
+mercado_pos_rodada = true;
 
 $("#search-team").on("click", function() {
   searchTeam();
@@ -542,3 +533,5 @@ $("#team-name").keypress(function(e) {
 $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
   getPontuacaoAtletas();
 });
+
+statusMercado();
