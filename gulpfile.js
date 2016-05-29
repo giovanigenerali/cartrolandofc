@@ -23,7 +23,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var javascript_files = [
 	'bower_components/jquery/dist/jquery.js',
 	'bower_components/bootstrap/dist/js/bootstrap.js',
-	'src/js/pontuacao-geral.js',
 	'src/js/scripts.js',
 ];
 
