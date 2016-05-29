@@ -176,3 +176,28 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+
+/* Rodada Atual */
+#rodada_atual {
+  display: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 0 0 4px 0;
+}
+
+/* Mercado Status */
+#mercado_status {
+  display: none;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 700;
+  padding: 2px 0 10px 0;
+}
+#mercado_status.aberto {
+  color: #3FA540;
+}
+#mercado_status.fechado {
+  color: #F87600;
+}

@@ -136,9 +136,27 @@ function getMercado() {
 function statusMercado() {
   getMercado().done(function(result) {
     mercado_status = result.status_mercado;
+    formatMercadoStatus();
     rodada_atual = result.rodada_atual;
-    mercado_pos_rodada = result.mercado_pos_rodada;
+    formatRodadaAtual();
   });
+}
+
+function formatMercadoStatus() {
+  var $mercado_status_wrapper = $("#mercado_status");
+  if (mercado_status == "1") {
+    $mercado_status_wrapper.html("Mercado aberto!").addClass("aberto");
+  } else if (mercado_status == "2") {
+    $mercado_status_wrapper.html("Mercado fechado").addClass("fechado");
+  } else {
+    $mercado_status_wrapper.html("");
+  }
+  $mercado_status_wrapper.show();
+}
+
+function formatRodadaAtual() {
+  var $rodada_atual_wrapper = $("#rodada_atual");
+  $rodada_atual_wrapper.html(rodada_atual + "ª Rodada").show();
 }
 
 function getAthletes(team_slug) {
@@ -528,19 +546,16 @@ function searchRows() {
 atletas_pontuados = null;
 rodada_atual = 0;
 mercado_status = 0;
-mercado_pos_rodada = true;
 
 $("#search-team").on("click", function() {
   searchTeam();
   statusMercado();
-  statusParciaisRodada();
 });
 
 $("#team-name").keypress(function(e) {
   if (e.which == 13) {
     searchTeam();
     statusMercado();
-    statusParciaisRodada();
   }
 });
 
@@ -549,3 +564,4 @@ $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
 });
 
 statusMercado();
+statusParciaisRodada();
