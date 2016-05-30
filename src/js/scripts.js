@@ -465,7 +465,6 @@ function getPontuacaoAtletas() {
           message = "A escalação desse time ainda não pode ser exibida.";
         }
         showMessage(message, "info");
-        $lista_atletas.append(atletas_rows).show();
         $rodada_atual.addClass("hide");
         loading("hide");
         return false;
@@ -505,7 +504,7 @@ function showMessage(message, type) {
   if (typeof type !== "undefined" && type !== "") {
     msg_type = type;
   }
-  $("#team_escalacao table").html("").append("<tr><td class='text-center msg "+ msg_type +"'>"+ message +"</td></tr>");
+  $("#team_escalacao table").html("").append("<tr><td class='text-center msg "+ msg_type +"'>"+ message +"</td></tr>").show();
 }
 
 function searchRows() {
