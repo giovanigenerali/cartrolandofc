@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="CartrolandoFC" property="og:title">
     <meta content="http://cartrolandofc.com/pontuacao-geral.html" property="og:url">
-    <meta content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC" property="og:description">
+    <meta content="Consulte as estatísticas e scouts dos jogadores no CartolaFC" property="og:description">
     <meta content="https://raw.githubusercontent.com/wgenial/cartrolandofc/master/images/site/screen2.png" property="og:image">
     <meta content="website" property="og:type">
     <meta content="pt_BR" property="og:locale">
@@ -15,10 +15,10 @@
     <meta name="twitter:site" content="CartrolandoFC">
     <meta name="twitter:creator" content="CartrolandoFC">
     <meta name="twitter:title" content="CartrolandoFC">
-    <meta name="twitter:description" content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC.">
+    <meta name="twitter:description" content="Consulte as estatísticas e scouts dos jogadores no CartolaFC">
     <meta name="twitter:image:src" content="https://raw.githubusercontent.com/wgenial/cartrolandofc/master/images/site/screen2.png">
-    <title>CartrolandoFC - Pontuação Geral dos Jogadores</title>
-    <meta name="description" content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC">
+    <title>CartrolandoFC - Estatísticas dos jogadores no CartolaFC</title>
+    <meta name="description" content="Consulte as estatísticas e scouts dos jogadores no CartolaFC">
     <link rel="apple-touch-icon" href="images/favicon-180x180.png">
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
@@ -35,12 +35,12 @@
       <div class="jumbotron">
 
         <h1>CartrolandoFC</h1>
-        <p class="lead">Pontuação geral dos jogadores da rodada atual no CartolaFC.</p>
+        <p class="lead">Consulte as estatísticas e scouts dos jogadores no CartolaFC</p>
 
         <ul class="nav nav-pills">
           <li><a href="/">Pontos parciais</a></li>
-          <li class="active"><a href="pontuacao-geral.html">Pontuação geral</a></li>
-          <li><a href="estatisticas.html">Estatísticas</a></li>
+          <li><a href="pontuacao-geral.html">Pontuação geral</a></li>
+          <li class="active"><a href="estatisticas.html">Estatísticas</a></li>
         </ul>
 
         <div id="status_rodada_mercado">
@@ -49,8 +49,8 @@
         </div>
 
         <p id="search-atleta" class="hide"><input type="text" id="atleta" class="form-control team" autocomplete="false" placeholder="Pesquisar jogador"></p>
-        <p><button type="button" id="load-pontuacao" class="btn btn-lg btn-success">Consultar</button></p>
-        <p><button type="button" id="refresh-pontuacao" class="btn btn-lg btn-info hide">Atualizar</button></p>
+        <p><button type="button" id="load-atletas-mercado" class="btn btn-lg btn-success">Consultar</button></p>
+        <p><button type="button" id="refresh-atletas-mercado" class="btn btn-lg btn-info hide">Atualizar</button></p>
 
         <p class="by-wgenial"><a href="http://wgenial.com.br" target="_blank">Desenvolvido por WGenial</a></p>
 
@@ -65,7 +65,7 @@
         <div id="result_athletes" class="col-lg-12">
           <div id="team_escalacao" class="table-responsive">
             <div class="rodada-atual hide"></div>
-            <table class="table"></table>
+            <table class="table estatisticas"></table>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
 
       <div class="social">
         <div class="twitter">
-          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Consulte a pontuação geral dos jogadores no CartolaFC" data-size="large" data-hashtags="cartolafc,cartrolandofc">Tweet</a>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Consulte as estatísticas e scouts dos jogadores no CartolaFC" data-size="large" data-hashtags="cartolafc,cartrolandofc">Tweet</a>
           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </div>
       </div>

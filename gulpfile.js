@@ -37,7 +37,8 @@ var css_files = [
 // HTML files
 var html_files = [
 	'index.html',
-	'pontuacao-geral.html'
+	'pontuacao-geral.html',
+	'estatisticas.html'
 ];
 
 // Cleanup files

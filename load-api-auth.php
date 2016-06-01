@@ -11,8 +11,8 @@
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
 
+    // liga
     if ($_GET["api"] === "liga") {
-
       // $orderBy: campeonato, turno, mes, rodada, patrimonio
       $orderBy = "";
       if (isset($_GET["orderBy"]) && $_GET["orderBy"] != "") {
@@ -30,6 +30,11 @@
       }
 
       $url = "https://api.cartolafc.globo.com/auth/liga/". $_GET["liga_slug"] . $orderBy . $page;
+    }
+
+    // estatisticas e scouts dos atletas
+    else if ($_GET["api"] === "atleta-pontuacao") {
+      $url = "https://api.cartolafc.globo.com/auth/mercado/atleta/". $_GET["atleta_id"] ."/pontuacao";
     }
 
     $c = curl_init();

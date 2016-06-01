@@ -18,6 +18,8 @@
       $url = "https://api.cartolafc.globo.com/atletas/pontuados";
     } else if ($_GET["api"] === "mercado-status") {
       $url = "https://api.cartolafc.globo.com/mercado/status";
+    } else if ($_GET["api"] === "atletas-mercado") {
+      $url = "https://api.cartolafc.globo.com/atletas/mercado";
     }
 
     $c = curl_init();

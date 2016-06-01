@@ -10,6 +10,10 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.btn,.btn:focus,.btn:active:focus,.btn.active:focus {
+  border: none;
+  outline: none;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -47,7 +51,7 @@ body {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 768px;
   }
 }
 
@@ -74,9 +78,8 @@ body {
   box-shadow: 0px 1px 0px #FFF;
 }
 .jumbotron .btn {
-  padding: 8px 16px;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 0.8em;
+  text-transform: uppercase;
 }
 .jumbotron a {
   font-size: 0.8em;
@@ -135,6 +138,31 @@ body {
   -webkit-transform-origin: center;
 }
 
+/* Navigation */
+.nav-pills {
+  display: inline-block;
+}
+.nav-pills>li+li:before {
+  content: "";
+  display: block;
+  position: relative;
+  float: left;
+  width: 2px;
+  margin: 0 0.8em;
+  background: #ccc;
+  border-right: 1px solid #fff;
+  height: 1em;
+}
+.nav-pills>li>a {
+  padding: 0;
+  float: left;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  color: #333;
+  background: none;
+}
+
+
 /* Rodada atual */
 .rodada-atual {
   font-size: 1.2em;
@@ -177,6 +205,12 @@ body {
   margin-bottom: 20px;
 }
 
+/* Status Rodada e Mercado */
+#status_rodada_mercado {
+  padding: 20px 0;
+  min-height: 78px;
+}
+
 /* Rodada Atual */
 #rodada_atual {
   display: none;
@@ -193,7 +227,6 @@ body {
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
-  padding: 2px 0 10px 0;
 }
 #mercado_status.aberto {
   color: #3FA540;
