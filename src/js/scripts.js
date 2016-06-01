@@ -685,13 +685,11 @@ mercado_status = 0;
 
 $("#search-team").on("click", function() {
   searchTeam();
-  statusMercado();
 });
 
 $("#team-name").keypress(function(e) {
   if (e.which == 13) {
     searchTeam();
-    statusMercado();
   }
 });
 
