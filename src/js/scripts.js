@@ -127,6 +127,9 @@ function getMercado() {
     dataType: "json",
     cache: false,
     url: "load-api.php?api=mercado-status",
+    beforeSend: function() {
+      $("#status_rodada_mercado").append("<img id='loading-bubbles' src='images/loading-bubbles.svg'>");
+    },
     success: function(data) {
       return data;
     }
@@ -135,6 +138,7 @@ function getMercado() {
 
 function statusMercado() {
   getMercado().done(function(result) {
+    $("#loading-bubbles").remove();
     mercado_status = result.status_mercado;
     formatMercadoStatus();
     rodada_atual = result.rodada_atual;

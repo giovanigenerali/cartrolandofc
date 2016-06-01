@@ -17,9 +17,13 @@
   .jumbotron h1 {
     font-size: 28px !important;
   }
+  .jumbotron a {
+    text-transform: none;
+  }
 
   .nav-pills>li+li:before {
     margin: 0 0.4em;
+    height: 20px;
   }
 
   #teams_list li {
