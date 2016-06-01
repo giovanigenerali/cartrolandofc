@@ -19,6 +19,11 @@ CartrolandoFC é um site para consultar os pontos parciais do seu time no Cartol
 
 [http://cartrolandofc.com/pontuacao-geral.html](http://cartrolandofc.com/pontuacao-geral.html)
 
+### Estatísticas e Scouts do CartolaFC
+
+[http://cartrolandofc.com/estatisticas.html](http://cartrolandofc.com/estatisticas.html)
+
+
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
 Dúvidas podem ser enviadas [por aqui](https://github.com/wgenial/cartrolandofc/issues).
