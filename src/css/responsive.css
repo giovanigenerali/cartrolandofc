@@ -3,27 +3,27 @@
  * Desenvolvido por WGenial - http://wgenial.com.br
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
-@media screen and (max-width: 767px) {
 
-  .header, .result, .footer {
-    padding-right: 0;
-    padding-left: 0;
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
   }
-  .forkmegithub {
-    width: 100px;
-    height: 100px;
-  }
+}
 
+@media (max-width: 767px) {
   .jumbotron h1 {
     font-size: 28px !important;
   }
   .jumbotron a {
     text-transform: none;
   }
-
   .nav-pills>li+li:before {
     margin: 0 0.4em;
-    height: 20px;
+    height: 1.2em;
+  }
+  input.team {
+    padding: 20px !important;
+    font-size: 20px !important;
   }
 
   #teams_list li {
@@ -42,7 +42,6 @@
     margin-left: 48px;
     margin-top: -12px;
   }
-
   #team_escudo, .team_nome {
     width: 100%;
     float: initial;
@@ -52,7 +51,6 @@
     margin: 0 auto;
     display: block;
   }
-
   #team_info {
     margin-bottom: 0;
   }
@@ -64,10 +62,13 @@
     text-align: center;
   }
 
+
   #team_rodada_pontuacao {
     width: 100%;
     margin: 20px 0 0 0;
     position: relative;
+    right: 0;
+    bottom: 0;
   }
   #team_rodada_pontuacao .team_rodada {
     text-align: center;
@@ -79,62 +80,65 @@
   #team_rodada_pontuacao .team_pontuacao .pontos_total {
     float: none;
   }
-
-  .table-responsive {
-    border: none !important;
+  .athlete_wrapper {
+    min-height: 100px;
   }
-  #team_escalacao td {
-    padding: 8px 8px 0 8px !important;
+  .athlete_clube {
+    width: 24px;
+    position: absolute;
+    margin-top: 4px;
+    left: 84px;
   }
-  #team_escalacao .athlete_clube img {
-    width: 70% !important;
+  .athlete_foto {
+    left: -10px;
   }
-  #team_escalacao .athlete_foto img {
-    width: 50%;
+  .athlete_foto img {
+    height: 90px;
   }
-  #team_escalacao .athlete_nome_label {
-    font-size: 1em !important;
+  .athlete_apelido_label {
+    left: 118px;
+    margin-top: 4px;
+    position: absolute;
+    font-size: 1.2em!important;
+    letter-spacing: -0.04em;
+    font-weight: 900;
+    font-size: 1.429em;
+    display: block;
+    line-height: 1em;
+    text-transform: uppercase;
   }
-  #team_escalacao .athlete_posicao_label {
-    font-size: 0.857em !important;
+  .athlete_posicao_label {
+    left: 118px;
+    position: absolute;
+    color: #666;
+    display: block;
+    font-size: 0.857em;
+    line-height: 0.857em;
+    text-transform: uppercase;
+    top: 30px;
   }
-  #team_escalacao .athlete_pontos {
-    font-size: 1em !important;
-  }
-
-  #team_escalacao table.estatisticas td {
-    padding: 8px 0 0 0 !important;
-  }
-  #team_escalacao table.estatisticas tr:hover td {
-    background: #F9F9F9;
-  }
-  .clube_escudo {
-    width: 20px;
-  }
-  .atleta_foto {
-    height: 50px;
-  }
-  #team_escalacao table.estatisticas .athlete_nome_label {
-    font-size: 0.8em !important;
-    line-height: normal;
-  }
-  #team_escalacao table.estatisticas .athlete_posicao_label {
-    font-size: 0.6em !important;
-    line-height: normal;
-  }
-  #team_escalacao table.estatisticas td.athlete_nome_posicao {
-    padding: 8px 0 0 6px !important;
-    width: 14%;
+  .statistics_wrapper {
+    bottom: 4px;
   }
   .athlete_val {
-    font-size: 0.8em;
+    font-size: .95em;
+    margin: 0 6px 2px 6px;
     line-height: normal;
     letter-spacing: -0.03em;
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    display: block;
   }
   .athlete_label {
-    font-size: 0.6em;
     line-height: normal;
     letter-spacing: -0.03em;
+    font-size: .7em;
+    margin: 0 4px 0 4px;
+    color: #666;
+    display: block;
+    text-transform: uppercase;
+    line-height: 0.8em;
+    text-align: center;
   }
-
 }

@@ -23,11 +23,16 @@
     }
 
     $c = curl_init();
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($c, CURLOPT_FRESH_CONNECT, TRUE);
     curl_setopt($c, CURLOPT_URL, $url);
+
     $result = curl_exec($c);
+
     curl_close($c);
+
     echo $result;
   }
 ?>

@@ -4,81 +4,53 @@
  * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
  */
 
-/* Space out content a bit */
+/* default */
 body {
   font-family: 'Lato', serif;
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.btn,.btn:focus,.btn:active:focus,.btn.active:focus {
-  border: none;
-  outline: none;
+*:focus {
+  border-color: #CCC !important;
+  box-shadow: initial !important;
+  outline: 0 !important;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.result,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
+/* misc */
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+.alert {
+  font-size: 1.1em !important;
 }
 
-/* Custom page header */
-.header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-  text-align: center;
-}
-.footer p {
-  font-size: 12px;
-  margin: 0;
-}
-
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-/* Main result message and sign up button */
+/* jumbotron */
 .jumbotron {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5 !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   margin-bottom: 20px !important;
+  background: #F5F5F5;
+  box-shadow: 0 1px 0 #ccc;
+  border: 1px solid #eee;
 }
 .jumbotron h1 {
   font-size: 3em !important;
   font-weight: 700;
   margin: 0;
+  padding-bottom: 10px;
 }
 .jumbotron p {
-  font-size: 16px !important;
+  font-size: 1.2em !important;
 }
 .jumbotron p.lead {
-  font-size: 16px;
   border-bottom: 1px solid #ccc;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   box-shadow: 0px 1px 0px #FFF;
 }
 .jumbotron .btn {
-  font-size: 0.8em;
+  font-size: 1em;
   text-transform: uppercase;
 }
 .jumbotron a {
@@ -87,38 +59,24 @@ body {
   text-transform: uppercase;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .result,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+/* footer */
+.footer {
+  padding-top: 10px;
+  text-align: center;
+  margin-top: 30px;;
+}
+.footer p {
+  margin: 0;
 }
 
 
-/* Github */
-.forkmegithub {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 0;
+#result {
+  display: none;
 }
 
 /* Social buttons */
 .social {
   text-align: center;
-  padding: 10px 0;
 }
 .social div {
   display: inline-block;
@@ -154,14 +112,17 @@ body {
   height: 1em;
 }
 .nav-pills>li>a {
+  letter-spacing: -0.03em;
+}
+.nav-pills>li>a, .nav-pills>li>a:focus, .nav-pills>li>a:hover {
   padding: 0;
   float: left;
+  background: none;
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
   color: #333;
   background: none;
 }
-
 
 /* Rodada atual */
 .rodada-atual {
@@ -193,14 +154,8 @@ body {
   color: #666;
 }
 
-/* Message */
-#team_escalacao td.msg {
-  padding: 10px !important;
-}
-
 /* Loading */
 #loading {
-  display: none;
   text-align: center;
   margin-bottom: 20px;
 }

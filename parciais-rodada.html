@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="CartrolandoFC" property="og:title">
-    <meta content="http://cartrolandofc.com/" property="og:url">
-    <meta content="Consulte os pontos parciais do seu time no CartolaFC" property="og:description">
+    <meta content="http://cartrolandofc.com/pontuacao-geral.html" property="og:url">
+    <meta content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC" property="og:description">
     <meta content="https://raw.githubusercontent.com/wgenial/cartrolandofc/master/images/site/screen2.png" property="og:image">
     <meta content="website" property="og:type">
     <meta content="pt_BR" property="og:locale">
@@ -15,13 +15,13 @@
     <meta name="twitter:site" content="CartrolandoFC">
     <meta name="twitter:creator" content="CartrolandoFC">
     <meta name="twitter:title" content="CartrolandoFC">
-    <meta name="twitter:description" content="Consulte os pontos parciais do seu time no CartolaFC">
+    <meta name="twitter:description" content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC.">
     <meta name="twitter:image:src" content="https://raw.githubusercontent.com/wgenial/cartrolandofc/master/images/site/screen2.png">
-    <title>CartrolandoFC - Parciais do seu time no CartolaFC</title>
-    <meta name="description" content="Consulte os pontos parciais do seu time no CartolaFC">
+    <title>CartrolandoFC - Pontuação Geral dos Jogadores</title>
+    <meta name="description" content="Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC">
     <link rel="apple-touch-icon" href="images/favicon-180x180.png">
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
     <link href="/build/css/styles-1465309381.min.css" rel="stylesheet" type="text/css">
   </head>
@@ -35,11 +35,11 @@
       <div class="jumbotron">
 
         <h1>CartrolandoFC</h1>
-        <p class="lead">Consulte os pontos parciais do seu time na rodada atual do Cartola FC</p>
+        <p class="lead">Consulte a pontuação geral dos jogadores na rodada atual do CartolaFC</p>
 
         <ul class="nav nav-pills">
-          <li class="active"><a href="/">Pontos Parciais</a></li>
-          <li><a href="parciais-rodada.html">Parciais da Rodada</a></li>
+          <li><a href="/">Pontos Parciais</a></li>
+          <li class="active"><a href="parciais-rodada.html">Parciais da Rodada</a></li>
           <li><a href="estatisticas.html">Estatísticas</a></li>
         </ul>
 
@@ -48,33 +48,16 @@
           <div id="mercado_status"></div>
         </div>
 
-        <p><input type="text" name="team-name" id="team-name" class="form-control team" autocomplete="false" placeholder="Nome do time"></p>
+        <p id="search-atleta" class="hide"><input type="text" id="atleta" class="form-control team" autocomplete="false" placeholder="Pesquisar jogador"></p>
 
-        <div id="teams_list"></div>
-
-        <button type="button" id="search-team" class="btn btn-lg btn-success">Consultar</button>
+        <button type="button" id="load-pontuacao" class="btn btn-lg btn-success">Consultar</button>
+        <button type="button" id="refresh-pontuacao" class="btn btn-lg btn-info hide">Atualizar</button>
 
         <p class="by-wgenial"><a href="http://wgenial.com.br" target="_blank">Desenvolvido por WGenial</a></p>
 
       </div>
 
       <div id="result" class="row">
-
-        <div id="team_info_wrapper" class="row">
-
-          <div id="team_escudo" class="col-lg-2"></div>
-
-          <div id="team_info" class="col-lg-7">
-            <div class="team_nome"></div>
-            <div class="team_patrimonio"></div>
-          </div>
-
-          <div id="team_rodada_pontuacao" class="col-lg-3">
-            <div class="team_rodada"></div>
-            <div class="team_pontuacao"></div>
-          </div>
-
-        </div>
 
         <div id="team_escalacao"></div>
 
@@ -84,7 +67,7 @@
 
         <div class="social row">
           <div class="twitter">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Consulte os pontos parciais do seu time no CartolaFC" data-size="large" data-hashtags="cartolafc,cartrolandofc">Tweet</a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Consulte a pontuação geral dos jogadores no CartolaFC" data-size="large" data-hashtags="cartolafc,cartrolandofc">Tweet</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
           </div>
         </div>

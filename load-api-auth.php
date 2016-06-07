@@ -38,16 +38,23 @@
     }
 
     $c = curl_init();
+
     curl_setopt($c, CURLOPT_URL, $url);
     curl_setopt($c, CURLOPT_HTTPHEADER, array('X-GLB-Token: '.$_SESSION['glbId']));
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($c, CURLOPT_VERBOSE, true);
+    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($c, CURLOPT_FRESH_CONNECT, TRUE);
+    curl_setopt($c, CURLOPT_VERBOSE, TRUE);
+
     $result = curl_exec($c);
+
     if ($result === FALSE) {
       die(curl_error($c));
     }
+
     curl_close($c);
+
     echo $result;
+
   }
 ?>

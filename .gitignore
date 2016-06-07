@@ -3,3 +3,5 @@ vendor/*
 bower_components/*
 node_modules/*
 json/*
+.php/*/**
+ga.js

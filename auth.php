@@ -38,8 +38,6 @@
 
   curl_close($c);
 
-  // echo $result;
   $parseJson = json_decode($result, TRUE);
-  // echo $parseJson['glbId'];
   $_SESSION['glbId'] = $parseJson['glbId'];
 ?>
