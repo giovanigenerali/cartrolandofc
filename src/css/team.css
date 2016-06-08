@@ -253,3 +253,11 @@
   text-transform: uppercase;
   line-height: .9em;
 }
+.athlete_status {
+  position: relative;
+  left: 10px;
+  top: -3px;
+}
+.athlete_status img {
+  height: 16px;
+}

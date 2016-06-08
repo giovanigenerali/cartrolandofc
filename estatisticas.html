@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
-    <link href="/build/css/styles-1465398396.min.css" rel="stylesheet" type="text/css">
+    <link href="/build/css/styles-1465427428.min.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -63,7 +63,12 @@
           <div class='row athlete_wrapper' dir-paginate="atleta in atletas_mercado.atletas | localeOrderBy:'apelido' | filter: { apelido: search.apelido } : removeAccents | itemsPerPage:10">
             <div class='athlete_clube'><img ng-src="{{ atletas_mercado.clubes[atleta.clube_id].escudos['45x45'] || 'images/emptystate_escudo.svg' }}"></div>
             <div class='athlete_foto'><img ng-src="{{ atleta.foto.replace('FORMATO','140x140') || 'images/foto-jogador.svg' }}"></div>
-            <div class='athlete_apelido_label'>{{ atleta.apelido }}</div>
+            <div class='athlete_apelido_label'>
+              <span>{{ atleta.apelido }}</span>
+              <span class='athlete_status' ng-if="atleta.status_id != 6">
+                <img ng-src="images/status_{{ atleta.status_id }}.png" title="{{ atletas_mercado.status[atleta.status_id].nome }}">
+              </span>
+            </div>
             <div class='athlete_posicao_label'>{{ atletas_mercado.posicoes[atleta.posicao_id ].nome }}</div>
             <div class='statistics_wrapper'>
               <div class='statistics'>

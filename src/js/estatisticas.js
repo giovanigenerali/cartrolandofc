@@ -98,11 +98,18 @@
 
     $scope.removeAccents = function(actual, expected) {
       if (angular.isObject(actual)) return false;
-      function removeAccents(value) {
-        return value.toString().replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ñ/g,'n');
+      function replaceStrAccent(str) {
+        return str.toString()
+          .replace(/[àáâãäå]/,"a")
+          .replace(/[eéèëê]/,"e")
+          .replace(/[iíìïî]/,"i")
+          .replace(/[oóòõöô]/,"o")
+          .replace(/[uúùüû]/,"u")
+          .replace(/[ñ]/,"n")
+          .replace(/[ç]/,"c");
       }
-      actual = removeAccents(angular.lowercase('' + actual));
-      expected = removeAccents(angular.lowercase('' + expected));
+      actual = replaceStrAccent(angular.lowercase('' + actual));
+      expected = replaceStrAccent(angular.lowercase('' + expected));
       return actual.indexOf(expected) !== -1;
     }
 
