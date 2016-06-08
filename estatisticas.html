@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="estatisticas">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
-    <link href="/build/css/styles-1465309381.min.css" rel="stylesheet" type="text/css">
+    <link href="/build/css/styles-1465398396.min.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -48,17 +48,52 @@
           <div id="mercado_status"></div>
         </div>
 
-        <p id="search-atleta" class="hide"><input type="text" id="atleta" class="form-control team" autocomplete="false" placeholder="Pesquisar jogador"></p>
-
-        <button type="button" id="load-atletas-estatisticas" class="btn btn-lg btn-success">Consultar</button>
+        <p id="search-atleta-filter" class="hide"><input type="text" id="atleta-filter" class="form-control team" autocomplete="false" placeholder="Pesquisar jogador" ng-model="search.apelido" autofocus></p>
 
         <p class="by-wgenial"><a href="http://wgenial.com.br" target="_blank">Desenvolvido por WGenial</a></p>
 
       </div>
 
+      <div id="loading" class="row" data-loading><img src="images/loading.gif"></div>
+
       <div id="result" class="row">
 
-        <div id="team_escalacao"></div>
+        <div id="team_escalacao" ng-controller="AtletasMercado">
+
+          <div class='row athlete_wrapper' dir-paginate="atleta in atletas_mercado.atletas | localeOrderBy:'apelido' | filter: { apelido: search.apelido } : removeAccents | itemsPerPage:10">
+            <div class='athlete_clube'><img ng-src="{{ atletas_mercado.clubes[atleta.clube_id].escudos['45x45'] || 'images/emptystate_escudo.svg' }}"></div>
+            <div class='athlete_foto'><img ng-src="{{ atleta.foto.replace('FORMATO','140x140') || 'images/foto-jogador.svg' }}"></div>
+            <div class='athlete_apelido_label'>{{ atleta.apelido }}</div>
+            <div class='athlete_posicao_label'>{{ atletas_mercado.posicoes[atleta.posicao_id ].nome }}</div>
+            <div class='statistics_wrapper'>
+              <div class='statistics'>
+                <span class='athlete_val {{ atleta.preco_num | getClassNumber }}'>C$ {{ atleta.preco_num | number:2 }}</span>
+                <span class='athlete_label'>Preço</span>
+              </div>
+              <div class='statistics'>
+                <span class='athlete_val {{ atleta.variacao_num | getClassArrowNumber }}'>{{ atleta.variacao_num | number:2 }}</span>
+                <span class='athlete_label' title='Variação (C$)'>Var.(C$)</span>
+              </div>
+              <div class='statistics'>
+                <span class='athlete_val {{ atleta.media_num | getClassNumber }}'>{{ atleta.media_num | number:2 }}</span>
+                <span class='athlete_label' title='Pontuação média'>Média</span>
+              </div>
+              <div class='statistics'>
+                <span class='athlete_val'>{{ atleta.pontos_num | number:2 }}</span>
+                <span class='athlete_label' title='Última pontuação'>Última</span>
+              </div>
+              <div class='statistics'>
+                <span class='athlete_val'>{{ atleta.jogos_num }}</span>
+                <span class='athlete_label'>Jogos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <dir-pagination-controls max-size="7" direction-links="true" boundary-links="false"></dir-pagination-controls>
+          </div>
+
+        </div>
 
       </div>
 
@@ -79,7 +114,10 @@
 
     </div>
 
-    <script src="/build/js/scripts-1465263071.min.js" type="text/javascript"></script>
+    <script src="/build/js/scripts-1465398399.min.js" type="text/javascript"></script>
+    <script src="/bower_components/angular/angular.js" type="text/javascript"></script>
+    <script src="/bower_components/angularUtils-pagination/dirPagination.js" type="text/javascript"></script>
+    <script src="/src/js/estatisticas.js" type="text/javascript"></script>
 
   </body>
 </html>

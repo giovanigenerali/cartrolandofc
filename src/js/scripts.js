@@ -75,25 +75,6 @@ function getClassArrowNumber(number) {
 
 }
 
-function detectNavigation() {
-  var is_mobile = window.matchMedia("only screen and (max-width: 760px)").matches, $nav_default = $(".nav-pills");
-  if (is_mobile) {
-    $("<select class='form-control nav-mobile'>").insertAfter($nav_default);
-    $nav_default.find("a").each(function() {
-      var el = $(this);
-      $("<option>", {"value": el.attr("href"), "text": el.text()}).appendTo(".nav-mobile");
-    });
-    $(".nav-mobile").on("change", function() {
-      window.location = $(this).val();
-    });
-    var path = window.location.pathname;
-    $(".nav-mobile").val(path != "/" ? window.location.pathname.replace("/","") : "/");
-    $nav_default.hide();
-  } else {
-    $nav_default.show();
-  }
-}
-
 // Buscar atletas dentro da escalacao
 function searchAthlete() {
 
@@ -1206,12 +1187,9 @@ function init() {
   });
 
   // Botoes para consultar estatisticas de todos os atletas
-  $("#load-atletas-estatisticas").on("click", function() {
-    getStatisticsAthletes();
-  });
-
-  // Navigation
-  // detectNavigation();
+  // $("#load-atletas-estatisticas").on("click", function() {
+  //   getStatisticsAthletes();
+  // });
 
 }
 
