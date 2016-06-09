@@ -76,7 +76,7 @@
                 <span class='athlete_label'>Preço</span>
               </div>
               <div class='statistics'>
-                <span class='athlete_val {{ atleta.variacao_num | getClassArrowNumber }}'>{{ atleta.variacao_num | number:2 }}</span>
+                <span class='athlete_val {{ atleta.variacao_num | getClassArrowNumber }}'>{{ atleta.variacao_num.toString().replace("-","") | number:2 }}</span>
                 <span class='athlete_label' title='Variação (C$)'>Var.(C$)</span>
               </div>
               <div class='statistics'>
