@@ -529,6 +529,19 @@ function getAthletes(team_slug) {
               /*********************************************************/
 
               /*********************************************************/
+              // athlete status
+              var athlete_status_id = athlete.status_id,
+                  athlete_status_label = request.status[athlete_status_id].nome,
+                  athlete_status_image = "";
+
+              // se status não for nulo
+              if (athlete_status_id != 6) {
+                athlete_status_image = "<img src='images/status_"+ athlete_status_id +".png' title='"+ athlete_status_label +"''>";
+              }
+              /*********************************************************/
+
+
+              /*********************************************************/
               // athlete posicao
               var athlete_posicao = request.posicoes[athlete.posicao_id].nome;
               /*********************************************************/
@@ -587,7 +600,10 @@ function getAthletes(team_slug) {
               <div id='"+ athlete.atleta_id +"' class='row athlete_wrapper'> \
                 <div class='athlete_clube'>" + athlete_clube_escudo + "</div> \
                 <div class='athlete_foto'>" + atleta_foto140x140 + "</div> \
-                <div class='athlete_apelido_label'>" + athlete_apelido + "</div> \
+                <div class='athlete_apelido_label'> \
+                  <span>" + athlete_apelido + "</span> \
+                  <span class='athlete_status'>"+ athlete_status_image +"</span> \
+                </div> \
                 <div class='athlete_posicao_label'>" + athlete_posicao + "</div> \
                 <div class='statistics_wrapper'> \
                   <div class='statistics'> \
