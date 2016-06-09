@@ -72,7 +72,7 @@
             <div class='athlete_posicao_label'>{{ atletas_mercado.posicoes[atleta.posicao_id ].nome }}</div>
             <div class='statistics_wrapper'>
               <div class='statistics'>
-                <span class='athlete_val {{ atleta.preco_num | getClassNumber }}'>C$ {{ atleta.preco_num | number:2 }}</span>
+                <span class='athlete_val {{ atleta.preco_num }}'>C$ {{ atleta.preco_num | number:2 }}</span>
                 <span class='athlete_label'>Preço</span>
               </div>
               <div class='statistics'>
@@ -84,7 +84,7 @@
                 <span class='athlete_label' title='Pontuação média'>Média</span>
               </div>
               <div class='statistics'>
-                <span class='athlete_val'>{{ atleta.pontos_num | number:2 }}</span>
+                <span class='athlete_val {{ atleta.pontos_num | getClassNumber }}'>{{ atleta.pontos_num | number:2 }}</span>
                 <span class='athlete_label' title='Última pontuação'>Última</span>
               </div>
               <div class='statistics'>
