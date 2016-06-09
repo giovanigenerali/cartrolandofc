@@ -25,6 +25,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-copy": "0.0.2",
     "gulp-cssmin": "^0.1.7",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-notify": "^2.2.0",
     "gulp-replace": "^0.5.4",
     "gulp-sourcemaps": "^1.6.0",

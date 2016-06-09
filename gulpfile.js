@@ -18,11 +18,15 @@ var copy = require('gulp-copy');
 var del = require('del');
 var replace = require('gulp-replace');
 var autoprefixer = require('gulp-autoprefixer');
+var ngAnnotate = require('gulp-ng-annotate');
 
 // Javascripts files
 var javascript_files = [
 	'bower_components/jquery/dist/jquery.js',
 	'bower_components/bootstrap/dist/js/bootstrap.js',
+	'bower_components/angular/angular.js',
+	'bower_components/angularUtils-pagination/dirPagination.js',
+	'src/js/estatisticas.js',
 	'src/js/scripts.js',
 ];
 
@@ -52,6 +56,7 @@ gulp.task('js', ['cleanup'], function() {
 	var filename = 'scripts-'+ timestamp +'.min.js';
 	gulp
 		.src(javascript_files)
+		.pipe(ngAnnotate())
 		.pipe(concat(filename))
 		.pipe(uglify())
 		.pipe(gulp.dest('build/js'))
