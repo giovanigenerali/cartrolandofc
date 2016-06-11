@@ -15,11 +15,11 @@ CartrolandoFC é um site para consultar os pontos parciais do seu time no Cartol
 ![](https://raw.github.com/wgenial/cartrolandofc/master/images/site/screen3.png)
 
 
-### Pontuação geral dos jogadores na rodada atual
+### Parciais da rodada atual Cartola FC
 
-[http://cartrolandofc.com/pontuacao-geral.html](http://cartrolandofc.com/pontuacao-geral.html)
+[http://cartrolandofc.com/parciais-rodada.html](http://cartrolandofc.com/parciais-rodada.html)
 
-### Estatísticas e Scouts do CartolaFC
+### Estatísticas e Scouts do Cartola FC
 
 [http://cartrolandofc.com/estatisticas.html](http://cartrolandofc.com/estatisticas.html)
 
