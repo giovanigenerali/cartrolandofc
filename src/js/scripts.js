@@ -620,7 +620,7 @@ function getAthletes(team_slug) {
                   </div> \
                   <div class='statistics "+ ((mercado_status == 6) ? 'hide' : '') +"'> \
                     <span class='athlete_val " + athlete_pontos_css + "'>" + athlete_pontos + "</span> \
-                    <span class='athlete_label' title='Última pontuação'>Última</span> \
+                    <span class='athlete_label'>"+ athlete_pontos_label +"</span> \
                   </div> \
                   <div class='statistics'> \
                     <span class='athlete_val'>"+ athlete_jogos +"</span> \
@@ -818,7 +818,7 @@ function getScoresCurrentRound() {
                 <div class='statistics_wrapper'> \
                   <div class='statistics'> \
                     <span class='athlete_val " + athlete_pontos_css + "'>" + athlete_pontos + "</span> \
-                    <span class='athlete_label' title='"+ dic.athlete_score_current.text +"'>"+ dic.athlete_score_current.text +"</span> \
+                    <span class='athlete_label'>"+ dic.athlete_score_current.text +"</span> \
                   </div> \
                 </div> \
               </div>";
