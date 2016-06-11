@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
-    <link href="/build/css/styles-1465427428.min.css" rel="stylesheet" type="text/css">
+    <link href="/build/css/styles-1465677052.min.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -61,38 +61,59 @@
         <div id="team_escalacao" ng-controller="AtletasMercado">
 
           <div class='row athlete_wrapper' dir-paginate="atleta in atletas_mercado.atletas | localeOrderBy:'apelido' | filter: { apelido: search.apelido } : removeAccents | itemsPerPage:10">
-            <div class='athlete_clube'><img ng-src="{{ atletas_mercado.clubes[atleta.clube_id].escudos['45x45'] || 'images/emptystate_escudo.svg' }}"></div>
-            <div class='athlete_foto'><img ng-src="{{ atleta.foto.replace('FORMATO','140x140') || 'images/foto-jogador.svg' }}"></div>
-            <div class='athlete_apelido_label'>
-              <span>{{ atleta.apelido }}</span>
-              <span class='athlete_status' ng-if="atleta.status_id != 6">
-                <img ng-src="images/status_{{ atleta.status_id }}.png" title="{{ atletas_mercado.status[atleta.status_id].nome }}">
-              </span>
+
+            <div class="athelte_info_wrapper">
+
+              <div class='athlete_clube'><img ng-src="{{ atletas_mercado.clubes[atleta.clube_id].escudos['45x45'] || 'images/emptystate_escudo.svg' }}"></div>
+
+              <div class='athlete_foto'><img ng-src="{{ atleta.foto.replace('FORMATO','140x140') || 'images/foto-jogador.svg' }}"></div>
+
+              <div class='athlete_apelido_label'>
+                <span>{{ atleta.apelido }}</span>
+                <span class='athlete_status' ng-if="atleta.status_id != 6" data-toggle="tooltip" data-placement="bottom" title="{{ atletas_mercado.status[atleta.status_id].nome }}" tooltip>
+                  <img ng-src="images/status_{{ atleta.status_id }}.png">
+                </span>
+              </div>
+
+              <div class='athlete_posicao_label'>{{ atletas_mercado.posicoes[atleta.posicao_id ].nome }}</div>
+
+              <div class='statistics_wrapper'>
+
+                <div class='statistics'>
+                  <span class='athlete_val'>C$ {{ atleta.preco_num | number:2 }}</span>
+                  <span class='athlete_label'>Preço</span>
+                </div>
+
+                <div class='statistics'>
+                  <span class='athlete_val {{ atleta.variacao_num | getClassArrowNumber }}'>{{ atleta.variacao_num.toString().replace("-","") | number:2 }}</span>
+                  <span class='athlete_label' title='Variação (C$)'>Var.(C$)</span>
+                </div>
+
+                <div class='statistics'>
+                  <span class='athlete_val {{ atleta.media_num | getClassNumber }}'>{{ atleta.media_num | number:2 }}</span>
+                  <span class='athlete_label' title='Pontuação média'>Média</span>
+                </div>
+
+                <div class='statistics'>
+                  <span class='athlete_val {{ atleta.pontos_num | getClassNumber }}'>{{ atleta.pontos_num | number:2 }}</span>
+                  <span class='athlete_label' title='Última pontuação'>Última</span>
+                </div>
+
+                <div class='statistics'>
+                  <span class='athlete_val'>{{ atleta.jogos_num }}</span>
+                  <span class='athlete_label'>Jogos</span>
+                </div>
+
+              </div>
+
+              <div ng-class="(showAthleteDetails) ? ['btn-athele-details', 'black-arrow-up'] : ['btn-athele-details', 'black-arrow-down']" ng-click="showAthleteDetails = ! showAthleteDetails" ng-show="atleta.jogos_num > 0" data-toggle="tooltip" data-placement="bottom" title="+ Info" tooltip></div>
+
             </div>
-            <div class='athlete_posicao_label'>{{ atletas_mercado.posicoes[atleta.posicao_id ].nome }}</div>
-            <div class='statistics_wrapper'>
-              <div class='statistics'>
-                <span class='athlete_val {{ atleta.preco_num }}'>C$ {{ atleta.preco_num | number:2 }}</span>
-                <span class='athlete_label'>Preço</span>
-              </div>
-              <div class='statistics'>
-                <span class='athlete_val {{ atleta.variacao_num | getClassArrowNumber }}'>{{ atleta.variacao_num.toString().replace("-","") | number:2 }}</span>
-                <span class='athlete_label' title='Variação (C$)'>Var.(C$)</span>
-              </div>
-              <div class='statistics'>
-                <span class='athlete_val {{ atleta.media_num | getClassNumber }}'>{{ atleta.media_num | number:2 }}</span>
-                <span class='athlete_label' title='Pontuação média'>Média</span>
-              </div>
-              <div class='statistics'>
-                <span class='athlete_val {{ atleta.pontos_num | getClassNumber }}'>{{ atleta.pontos_num | number:2 }}</span>
-                <span class='athlete_label' title='Última pontuação'>Última</span>
-              </div>
-              <div class='statistics'>
-                <span class='athlete_val'>{{ atleta.jogos_num }}</span>
-                <span class='athlete_label'>Jogos</span>
-              </div>
-            </div>
+
+            <ng-include class="athele-details" src="'partials/atleta-'+ atletas_mercado.posicoes[atleta.posicao_id ].abreviacao +'.html?r='+ Date.now()" ng-show="showAthleteDetails"></ng-include>
+
           </div>
+
 
           <div class="text-center">
             <dir-pagination-controls max-size="7" direction-links="true" boundary-links="false"></dir-pagination-controls>
@@ -119,7 +140,7 @@
 
     </div>
 
-    <script src="/build/js/scripts-1465479240.min.js" type="text/javascript"></script>
+    <script src="/build/js/scripts-1465670034.min.js" type="text/javascript"></script>
 
   </body>
 </html>

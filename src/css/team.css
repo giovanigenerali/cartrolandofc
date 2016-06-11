@@ -146,8 +146,18 @@
   border: 1px solid #eee;
   border-bottom: 0;
   position: relative;
-  overflow: hidden;
   min-height: 110px;
+}
+.athelte_info_wrapper {
+  min-height: 110px;
+  position: relative;
+}
+.athelte_details_wrapper {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 .athlete_clube {
   width: 32px;
@@ -260,4 +270,39 @@
 }
 .athlete_status img {
   height: 16px;
+}
+.btn-athele-details {
+  position: absolute;
+  left: -10px;
+  bottom: 0px;
+  height: 30px;
+  width: 40px;
+  cursor: pointer;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.black-arrow-up {
+  background: #e7e7e7 url('/images/arrow_up.svg') 50% 50% no-repeat;
+  border-bottom-left-radius: 0;
+}
+
+.black-arrow-down {
+  background: #fff url('/images/arrow_down.svg') 50% 50% no-repeat;
+}
+.black-arrow-down:hover {
+  background: #e7e7e7 url('/images/arrow_down.svg') 50% 50% no-repeat;
+}
+.athele-details {
+  border-top: 1px solid #e7e7e7;
+  display: block;
+  margin-left: -10px;
+  margin-right: -10px;
+  background: #f2f2f2;
+}
+.athele-details .row {
+  padding: 10px;
+}
+.athele-details .scouts {
+  margin-right: -10px;
+  margin-left: -10px;
 }

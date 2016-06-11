@@ -536,7 +536,7 @@ function getAthletes(team_slug) {
 
               // se status não for nulo
               if (athlete_status_id != 6) {
-                athlete_status_image = "<img src='images/status_"+ athlete_status_id +".png' title='"+ athlete_status_label +"''>";
+                athlete_status_image = "<img src='images/status_"+ athlete_status_id +".png'>";
               }
               /*********************************************************/
 
@@ -602,7 +602,7 @@ function getAthletes(team_slug) {
                 <div class='athlete_foto'>" + atleta_foto140x140 + "</div> \
                 <div class='athlete_apelido_label'> \
                   <span>" + athlete_apelido + "</span> \
-                  <span class='athlete_status'>"+ athlete_status_image +"</span> \
+                  <span class='athlete_status' data-toggle='tooltip' data-placement='bottom' title='"+ athlete_status_label +"'>"+ athlete_status_image +"</span> \
                 </div> \
                 <div class='athlete_posicao_label'>" + athlete_posicao + "</div> \
                 <div class='statistics_wrapper'> \
@@ -681,6 +681,9 @@ function getAthletes(team_slug) {
 
       // exibe o resultado
       $result.show();
+
+      // tooltip
+      $('[data-toggle="tooltip"]').tooltip();
 
     },
     error: function() {
@@ -802,24 +805,24 @@ function getScoresCurrentRound() {
 
               /*********************************************************/
               // atletas pontuacao
-              var athlete_pontos = athlete.pontuacao.toFixed(2);
-              var athlete_pontos_css = getClassNumber(athlete.pontuacao);
+              var athlete_pontos = athlete.pontuacao.toFixed(2),
+                  athlete_pontos_css = getClassNumber(athlete.pontuacao);
               /*********************************************************/
 
               var athlete_row = " \
-              <div class='row athlete_wrapper'> \
-                <div class='col-xs-3'> \
-                  <div class='athlete_clube'>" + athlete_clube_escudo + "</div> \
-                  <div class='athlete_foto'>" + atleta_foto140x140 + "</div> \
+              <div id='"+ athlete.atleta_id +"' class='row athlete_wrapper'> \
+                <div class='athlete_clube'>" + athlete_clube_escudo + "</div> \
+                <div class='athlete_foto'>" + atleta_foto140x140 + "</div> \
+                <div class='athlete_apelido_label'>" + athlete_apelido + "</div> \
+                <div class='athlete_posicao_label'>" + athlete_posicao + "</div> \
+                <div class='statistics_wrapper'> \
+                  <div class='statistics'> \
+                    <span class='athlete_val " + athlete_pontos_css + "'>" + athlete_pontos + "</span> \
+                    <span class='athlete_label' title='"+ dic.athlete_score_current.text +"'>"+ dic.athlete_score_current.text +"</span> \
+                  </div> \
                 </div> \
-              	<div class='col-xs-7'> \
-                  <span class='athlete_apelido_label'>" + athlete_apelido + "</span> \
-                  <span class='athlete_posicao_label'>" + athlete_posicao + "</span> \
-              	</div> \
-              	<div class='col-xs-2'> \
-                  <span class='athlete_pontos " + athlete_pontos_css + "'>" + athlete_pontos + "</span> \
-              	</div> \
               </div>";
+
               $(athlete_row).appendTo($team_escalacao);
 
             }
