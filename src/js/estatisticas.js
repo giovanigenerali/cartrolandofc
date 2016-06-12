@@ -107,9 +107,25 @@ app.filter('localeOrderBy', function () {
   }
 });
 
+app.filter('formatDataHoraPartida', function() {
+  return function(partida) {
+    var diasDaSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+        dataDaPartida = new Date(partida.partida_data.replace(/-/g, "/")),
+        diaDaSemana = diasDaSemana[dataDaPartida.getDay()],
+        dia = dataDaPartida.getDate() < 10 ? "0" + dataDaPartida.getDate() : dataDaPartida.getDate(),
+        mes = ("0" + (dataDaPartida.getMonth() + 1)).slice(-2),
+        ano = dataDaPartida.getFullYear(),
+        hora = dataDaPartida.getHours() < 10 ? "0" + dataDaPartida.getHours() : dataDaPartida.getHours(),
+        minutos = dataDaPartida.getMinutes() < 10 ? "0" + dataDaPartida.getMinutes() : dataDaPartida.getMinutes();
+    return diaDaSemana + " " + [dia, mes, ano].join("/") +" - "+ hora + ":" + minutos;
+  }
+});
+
 app.controller('AtletasMercado', function($scope, $http) {
 
   $scope.athleteDetais = false;
+
+  $scope.timestamp = Math.floor(Date.now()/1000);
 
   $scope.removeAccents = function(actual, expected) {
     if (angular.isObject(actual)) return false;

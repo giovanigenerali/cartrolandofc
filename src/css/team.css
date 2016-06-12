@@ -298,14 +298,54 @@
 .athele-details {
   border-top: 1px solid #e7e7e7;
   display: block;
+  background: #FDFDFD;
   margin-left: -10px;
   margin-right: -10px;
-  background: #f2f2f2;
-}
-.athele-details .row {
   padding: 10px;
+  overflow: hidden;
 }
-.athele-details .scouts {
-  margin-right: -10px;
-  margin-left: -10px;
-}
+  .partida {
+    background: #f8f8f8;
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+  }
+    .partida p {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .partida em {
+      font-size: 12px;
+      color: #666;
+      font-style: normal;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .partida .clubes {
+      color: #666;
+      font-size: 12px;
+    }
+      .partida .clubes strong {
+        color: #333;
+        margin: 0 4px;
+        font-size: 16px;
+      }
+      .partida .clubes img {
+        margin: 0 4px;
+      }
+  .scouts {
+    margin: 10px 0 0 0;
+    padding: 0 4px;
+  }
+  .scouts p {
+    margin-bottom: 6px;
+  }
+    .scout-row {
+      margin: 0;
+      padding: 0;
+    }
+    .scout-row div {
+      margin-bottom: 4px;
+    }

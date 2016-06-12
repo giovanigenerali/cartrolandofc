@@ -1,15 +1,29 @@
-<div class="row">
-  <div class="col-lg-12">
+<div class="athele-details">
+
+  <div class="col-lg-12 partida">
+    <p>{{ atleta.partida | formatDataHoraPartida }}</p>
+    <em>{{ atleta.partida.local }}</em>
+    <div class="clubes">
+      {{ atleta.partida.clube_casa_posicao }}º
+      <img ng-src="{{ atletas_mercado.clubes[atleta.partida.clube_casa_id].escudos['30x30'] }}" data-toggle="tooltip" data-placement="bottom" title="{{ atletas_mercado.clubes[atleta.partida.clube_casa_id].nome }}" tooltip>
+      <strong>x</strong>
+      <img ng-src="{{ atletas_mercado.clubes[atleta.partida.clube_visitante_id].escudos['30x30'] }}" data-toggle="tooltip" data-placement="bottom" title="{{ atletas_mercado.clubes[atleta.partida.clube_visitante_id].nome }}" tooltip>
+      {{ atleta.partida.clube_visitante_posicao }}º
+    </div>
+  </div>
+
+  <div class="col-lg-12 scouts">
     <p>Em <strong>{{ atleta.jogos_num }}</strong> jogos:</p>
-    <div class="col-lg-6 scouts">
+    <div class="col-lg-6 scout-row">
       <div><strong>{{ atleta.scout.G + 0 }}</strong> gols</div>
       <div><strong>{{ atleta.scout.A + 0 }}</strong> assistências</div>
       <div><strong>{{ atleta.scout.RB + 0 }}</strong> roubadas de bola</div>
     </div>
-    <div class="col-lg-6 scouts">
+    <div class="col-lg-6 scout-row">
       <div><strong>{{ atleta.scout.FC + 0 }}</strong> faltas cometidas</div>
       <div><strong>{{ atleta.scout.CA + 0 }}</strong> cartões amarelos</div>
       <div><strong>{{ atleta.scout.CV + 0 }}</strong> cartões vermelhos</div>
     </div>
   </div>
+
 </div>

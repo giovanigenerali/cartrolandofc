@@ -24,7 +24,7 @@
     <link rel="icon" type="image/png" href="images/favicon-32x32.png">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700' rel='stylesheet' type='text/css'>
-    <link href="/build/css/styles-1465681556.min.css" rel="stylesheet" type="text/css">
+    <link href="/build/css/styles-1465760122.min.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -111,7 +111,7 @@
 
             </div>
 
-            <ng-include class="athele-details" src="'partials/atleta-'+ atletas_mercado.posicoes[atleta.posicao_id ].abreviacao +'.html?r='+ Date.now()" ng-show="showAthleteDetails"></ng-include>
+            <ng-include src="'partials/atleta-'+ atletas_mercado.posicoes[atleta.posicao_id].abreviacao +'.html?t='+ timestamp" ng-show="showAthleteDetails"></ng-include>
 
           </div>
 
@@ -141,7 +141,7 @@
 
     </div>
 
-    <script src="/build/js/scripts-1465685894.min.js" type="text/javascript"></script>
+    <script src="/build/js/scripts-1465758111.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://static.boo-box.com/javascripts/boo-inject.js"></script>
 
   </body>
