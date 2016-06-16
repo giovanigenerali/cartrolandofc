@@ -311,13 +311,11 @@
     border-radius: 6px;
   }
     .partida p {
-      font-size: 14px;
       font-weight: 700;
       margin: 0;
       text-transform: uppercase;
     }
     .partida em {
-      font-size: 12px;
       color: #666;
       font-style: normal;
       margin-bottom: 8px;
@@ -325,19 +323,21 @@
     }
     .partida .clubes {
       color: #666;
-      font-size: 12px;
+      font-family: 'Roboto Slab', sans-serif;
     }
       .partida .clubes strong {
         color: #333;
         margin: 0 4px;
         font-size: 16px;
+        font-family: 'Lato', sans-serif;
       }
       .partida .clubes img {
-        margin: 0 4px;
+        margin: 0 8px;
       }
   .scouts {
     margin: 10px 0 0 0;
     padding: 0 4px;
+    font-family: 'Roboto Slab', sans-serif;
   }
   .scouts p {
     margin-bottom: 6px;

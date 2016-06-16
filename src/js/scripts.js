@@ -194,9 +194,6 @@ function loadMercadoRodada() {
   // terminou a chamada da leitura do mercado e rodada
   getMercadoRodada().done(function(result) {
 
-    // remove loading
-    $("#loading-bubbles").remove();
-
     // define o status do mercado
     mercado_status = result.status_mercado;
 
@@ -215,7 +212,20 @@ function loadMercadoRodada() {
       // chama a funcao para a definicao dos atletas pontuados da rodada atual
       loadParciaisRodada();
 
+      // desativa contatem regressiva
+      $("#mercado_cronometro").hide();
+
     }
+    // mercado aberto
+    else {
+
+      // ativa o cronometro de fechamento do mercado
+      cronometroFechamentoMercado(result.fechamento.ano, result.fechamento.mes, result.fechamento.dia, result.fechamento.hora, result.fechamento.minuto);
+
+    }
+
+    // remove loading
+    $("#loading-bubbles").remove();
 
   });
 
@@ -1101,6 +1111,36 @@ function getStatisticsAthletes() {
 
   });
 
+}
+
+function cronometroFechamentoMercado(ano, mes, dia, hora, minutos) {
+  var data_fechamento = new Date(ano, mes, dia, hora, minutos, 0, 0).getTime();
+  $("<span id='mercado_cronometro' style='display:none;'>Mercado fecha em <strong id='cronometro'></strong></span>").appendTo("#status_rodada_mercado");
+  setInterval(function () {
+    $("#cronometro").html(contagemRegressiva(data_fechamento));
+    $("#mercado_cronometro").show();
+    }, 1000);
+  }
+
+function contagemRegressiva(data_fechamento) {
+	var data_atual = new Date().getTime(),
+      sr = (data_fechamento - data_atual) / 1000,
+      h, m, s;
+
+  sr = sr % 86400;
+
+  h = parseInt(sr / 3600);
+  h = (h < 10) ? 0 +""+ h : h;
+
+  sr = sr % 3600;
+
+  m = parseInt(sr / 60);
+  m = (m < 10) ? 0 +""+ m : m;
+
+  s = parseInt(sr % 60);
+  s = (s < 10) ? 0 +""+ s : s;
+
+  return h + ":" + m + ":" + s;
 }
 
 

@@ -189,3 +189,21 @@ body {
 #mercado_status.fechado {
   color: #F87600;
 }
+
+/* Mercado Cronometro */
+#mercado_cronometro {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Adv */
+.adv {
+  display: inline-block;
+  margin: 6px 0;
+  width: 100%;
+  text-align: center;
+  align-content: center;
+}
+.adv .boo-widget.custom {
+  margin: 0 auto !important;
+}
