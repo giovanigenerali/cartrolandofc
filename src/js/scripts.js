@@ -142,10 +142,10 @@ function getParciaisRodada() {
     type: "GET",
     contentType: "application/json",
     dataType: "json",
-    cache: false,
     timeout: 10000,
     url: "load-api.php?api=parciais-atletas",
     success: function(data) {
+      console.info("["+ new Date() +"] parciais-atletas: updated");
       return data;
     }
   });
@@ -174,7 +174,6 @@ function getMercadoRodada() {
     type: "GET",
     contentType: "application/json",
     dataType: "json",
-    cache: false,
     timeout: 10000,
     url: "load-api.php?api=mercado-status",
     beforeSend: function() {
@@ -209,18 +208,8 @@ function loadMercadoRodada() {
     // se mercado fechado
     if (mercado_status == 2) {
 
-      // chama a funcao para a definicao dos atletas pontuados da rodada atual
-      loadParciaisRodada();
-
       // desativa contatem regressiva
       $("#mercado_cronometro").hide();
-
-    }
-    // mercado aberto
-    else {
-
-      // ativa o cronometro de fechamento do mercado
-      cronometroFechamentoMercado(result.fechamento.ano, result.fechamento.mes, result.fechamento.dia, result.fechamento.hora, result.fechamento.minuto);
 
     }
 
@@ -260,7 +249,6 @@ function searchTeam() {
     $.ajax({
       type: "GET",
       contentType: "application/json",
-      cache: false,
       timeout: 10000,
       url: "load-api.php",
       data: {
@@ -427,8 +415,27 @@ function teamInfo(team) {
   // exibe informacoes do time
   $team_info_wrapper.show();
 
-  // Lista atletas via [slug do time]
-  getAthletes(team.slug);
+
+  // se mercado fechado
+  if (mercado_status == 2) {
+
+    // chama a funcao para a definicao dos atletas pontuados da rodada atual
+    getParciaisRodada().done(function(result) {
+
+      // define os atletas pontuados
+      atletas_pontuados = result.atletas;
+
+      // Lista atletas via [slug do time]
+      getAthletes(team.slug);
+
+    });
+
+  } else {
+
+    // Lista atletas via [slug do time]
+    getAthletes(team.slug);
+
+  }
 
 }
 
@@ -449,7 +456,6 @@ function getAthletes(team_slug) {
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    cache: false,
     timeout: 10000,
     url: "load-api.php",
     data: {
@@ -725,7 +731,6 @@ function getScoresCurrentRound() {
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    cache: false,
     timeout: 10000,
     url: "load-api.php",
     data: {
@@ -909,7 +914,6 @@ function getStatisticsAthletes() {
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    cache: false,
     timeout: 10000,
     url: "load-api.php",
     data: {
@@ -1112,37 +1116,6 @@ function getStatisticsAthletes() {
   });
 
 }
-
-function cronometroFechamentoMercado(ano, mes, dia, hora, minutos) {
-  var data_fechamento = new Date(ano, mes, dia, hora, minutos, 0, 0).getTime();
-  $("<span id='mercado_cronometro' style='display:none;'>Mercado fecha em <strong id='cronometro'></strong></span>").appendTo("#status_rodada_mercado");
-  setInterval(function () {
-    $("#cronometro").html(contagemRegressiva(data_fechamento));
-    $("#mercado_cronometro").show();
-    }, 1000);
-  }
-
-function contagemRegressiva(data_fechamento) {
-	var data_atual = new Date().getTime(),
-      sr = (data_fechamento - data_atual) / 1000,
-      h, m, s;
-
-  sr = sr % 86400;
-
-  h = parseInt(sr / 3600);
-  h = (h < 10) ? 0 +""+ h : h;
-
-  sr = sr % 3600;
-
-  m = parseInt(sr / 60);
-  m = (m < 10) ? 0 +""+ m : m;
-
-  s = parseInt(sr % 60);
-  s = (s < 10) ? 0 +""+ s : s;
-
-  return h + ":" + m + ":" + s;
-}
-
 
 // Inicializacao
 function init() {

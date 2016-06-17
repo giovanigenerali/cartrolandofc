@@ -19,6 +19,7 @@ var del = require('del');
 var replace = require('gulp-replace');
 var autoprefixer = require('gulp-autoprefixer');
 var ngAnnotate = require('gulp-ng-annotate');
+var inject = require('gulp-inject');
 
 // Javascripts files
 var javascript_files = [
