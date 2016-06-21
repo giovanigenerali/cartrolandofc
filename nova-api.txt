@@ -36,3 +36,10 @@ https://api.cartolafc.globo.com/ligas?q=[nome da liga]
 
 # busca informações de uma liga específica, usar o slug da liga.
 https://api.cartolafc.globo.com/auth/liga/[slug da liga]
+
+# retornar informações do time do usuario logado.
+https://api.cartolafc.globo.com/auth/time
+https://api.cartolafc.globo.com/auth/time/info
+
+# retornar todas as ligas do usuário logado.
+https://api.cartolafc.globo.com/auth/ligas
