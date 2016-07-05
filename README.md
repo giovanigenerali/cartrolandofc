@@ -26,8 +26,8 @@ CartrolandoFC é um site para consultar os pontos parciais do seu time no Cartol
 
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
-### Dúvidas?
-Se você precisa de ajuda ou quer tirar alguma dúvida, consulte aqui:
+### Dúvidas sobre a API?
 https://github.com/wgenial/cartrolandofc/issues
 
-Obs.: Não envie email pois nem sempre tenho tempo para responder tudo, obrigado.
+### Atenção
+Dúvidas não relacionadas ao projeto como instalação, dúvidas de programação etc.. não serão respondidas e a issue será fechada. Agradeço a compreensão, obrigado.
