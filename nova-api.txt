@@ -46,3 +46,26 @@ https://api.cartolafc.globo.com/auth/ligas
 
 # lista os esquemas dos times (4-3-3) etc...
 https://api.cartolafc.globo.com/esquemas
+
+# salvar a escalação do time.
+- Enviar um POST para esse endpoint. Também é necessário enviar no header o "X-GLB-Token" com o token.
+	https://api.cartolafc.globo.com/auth/time/salvar
+
+- O POST deve conter o seguinte:
+	[
+	  "esquema": 3,
+	  "atleta": [
+	    37788,
+	    71116,
+	    39152,
+	    50427,
+	    87225,
+	    62009,
+	    81682,
+	    87863,
+	    78435,
+	    68930,
+	    90651,
+			62136
+		]
+	]
