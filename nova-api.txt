@@ -43,3 +43,6 @@ https://api.cartolafc.globo.com/auth/time/info
 
 # retornar todas as ligas do usuário logado.
 https://api.cartolafc.globo.com/auth/ligas
+
+# lista os esquemas dos times (4-3-3) etc...
+https://api.cartolafc.globo.com/esquemas
