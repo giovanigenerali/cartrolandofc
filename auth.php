@@ -15,6 +15,7 @@
   $url = 'https://login.globo.com/api/authentication';
 
   $jsonAuth = array(
+    'captcha' => '',
     'payload' => array(
       'email' => $email,
       'password' => $password,
