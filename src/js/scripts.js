@@ -205,12 +205,13 @@ function loadMercadoRodada() {
     // chama formatacao da rodada atual
     formatRodadaAtual();
 
-    // se mercado fechado
-    if (mercado_status == 2) {
-
-      // desativa contatem regressiva
-      $("#mercado_cronometro").hide();
-
+    // Botoes para consultar e/ou atualizar pontuacao parciais da rodada atual
+    // se mercado nao estiver encerado
+    if (mercado_status != 6) {
+      $("#load-pontuacao").show();
+      $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
+        getScoresCurrentRound();
+      });
     }
 
     // remove loading
@@ -356,12 +357,10 @@ function dropdownTeams(teams, teams_total) {
 
     var team_slug = teams_list[i].slug,
       team_nome = teams_list[i].nome,
-      team_escudo = teams_list[i].url_escudo_png,
       team_cartoleiro = teams_list[i].nome_cartola;
 
     wrapper += " \
 	  <li data-inc='" + i + "' data-slug='" + team_slug + "' data-nome='" + team_nome + "'> \
-      <img class='escudo' src=" + team_escudo + "> \
       <div class='nome'>" + team_nome + "</div> \
       <div class='cartola'>" + team_cartoleiro + "</div> \
 	  </li>";
@@ -398,16 +397,9 @@ function dropdownTeams(teams, teams_total) {
 function teamInfo(team) {
 
   var $team_info_wrapper = $("#team_info_wrapper"),
-
-    $team_escudo = $("#team_escudo"),
-    team_escudo = (team.url_escudo_png != "") ? "<img src=" + team.url_escudo_png + ">" : "",
-
-    $team_nome = $(".team_nome"),
-    team_nome = (team.nome != "") ? team.nome : "",
-    team_cartola = (team.nome_cartola != "") ? team.nome_cartola : "";
-
-  // time escudo
-  $team_escudo.html(team_escudo);
+      $team_nome = $(".team_nome"),
+      team_nome = (team.nome != "") ? team.nome : "",
+      team_cartola = (team.nome_cartola != "") ? team.nome_cartola : "";
 
   // time nome / cartola nome
   $team_nome.html("<h1>" + team_nome + "</h1><h3>" + team_cartola + "</h3>");
@@ -496,7 +488,13 @@ function getAthletes(team_slug) {
       // tem retorno da API
       else {
 
-        athletes = request.atletas;
+        // time escudo
+        var team = request.time;
+        $team_escudo = $("#team_escudo"),
+        team_escudo = (team.url_escudo_svg != "") ? "<img src=" + team.url_escudo_svg + ">" : "";
+        $team_escudo.html(team_escudo);
+
+        var athletes = request.atletas;
 
         // tem retorno de atletas da API
         if (typeof athletes !== "undefined" && athletes != "") {
@@ -1149,6 +1147,10 @@ function init() {
       4: {
         'text': 'Mercado em manutenção!',
         'type': 'manutencao'
+      },
+      6: {
+        'text': 'Final de temporada',
+        'type': 'encerrado'
       }
     },
     'athlete_score_current': {
@@ -1212,16 +1214,6 @@ function init() {
       searchTeam();
     }
   });
-
-  // Botoes para consultar e/ou atualizar pontuacao parciais da rodada atual
-  $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
-    getScoresCurrentRound();
-  });
-
-  // Botoes para consultar estatisticas de todos os atletas
-  // $("#load-atletas-estatisticas").on("click", function() {
-  //   getStatisticsAthletes();
-  // });
 
 }
 

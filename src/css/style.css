@@ -189,11 +189,8 @@ body {
 #mercado_status.fechado {
   color: #F87600;
 }
-
-/* Mercado Cronometro */
-#mercado_cronometro {
-  display: inline-block;
-  margin-top: 10px;
+#mercado_status.encerrado {
+  color: #607d8b;
 }
 
 /* Adv */
