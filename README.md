@@ -1,6 +1,4 @@
-# ATENÇÃO: A API oficial do CARTOLA FC apresentou algumas falhas e por isso achamos que ela tivesse sido desativada. Hoje ela está respondendo novamente mas como não temos nenhum status oficial o uso não é garantido. Reforçamos que esse projeto não será mais mantido por nós independente do status da API oficial. (04/04/17)
-
-### ATENÇÃO: A API oficial do CARTOLA FC foi desativada, portanto esse projeto não será mais mantido. Agradecemos à todos pelas sugestões, dicas e elogios! (01/04/17)
+# ATENÇÃO: A API oficial do CARTOLA FC apresentou algumas falhas e por isso achamos que ela tivesse sido desativada. Hoje ela está respondendo novamente mas como não temos nenhum status oficial o uso não é garantido. (07/04/17)
 
 # CartrolandoFC
 [![GitHub forks](https://img.shields.io/github/forks/wgenial/cartrolandofc.svg)](https://github.com/wgenial/cartrolandofc/network)
