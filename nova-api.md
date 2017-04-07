@@ -42,11 +42,11 @@
 
 * Busca informações de um time específico, usar o slug do time.
 	
-	https://api.cartolafc.globo.com/time/[slug do time]
+	https://api.cartolafc.globo.com/time/slug/[slug do time]
 
 * Busca informações de um time específico por rodada, usar o slug do time e o número da rodada (ex. 1,2,3,4...)
 	
-	https://api.cartolafc.globo.com/time/[slug do time]/[rodada]
+	https://api.cartolafc.globo.com/time/slug/[slug do time]/[rodada]
 
 * Busca geral de ligas, para consultar uma liga específica é necessário token
 
