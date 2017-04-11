@@ -7,7 +7,7 @@
 
   include 'auth.php';
 
-  header('Content-type: application/json');
+  header('Content-type: application/json;charset=UTF-8');
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
 
@@ -37,24 +37,7 @@
       $url = "https://api.cartolafc.globo.com/auth/mercado/atleta/". $_GET["atleta_id"] ."/pontuacao";
     }
 
-    $c = curl_init();
-
-    curl_setopt($c, CURLOPT_URL, $url);
-    curl_setopt($c, CURLOPT_HTTPHEADER, array('X-GLB-Token: '.$_SESSION['glbId']));
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($c, CURLOPT_FRESH_CONNECT, TRUE);
-    curl_setopt($c, CURLOPT_VERBOSE, TRUE);
-
-    $result = curl_exec($c);
-
-    if ($result === FALSE) {
-      die(curl_error($c));
-    }
-
-    curl_close($c);
-
-    echo $result;
-
+    $json = exec("curl -X GET ". $url ." -H 'x-glb-token: ". $_SESSION['glbId'] ."'");
+    echo $json;
   }
 ?>

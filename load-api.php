@@ -5,15 +5,14 @@
    * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file
    */
 
-  header("Access-Control-Allow-Origin: *");
-  header('Content-type: application/json');
+  header('Content-type: application/json;charset=UTF-8');
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
 
     if ($_GET["api"] === "busca-time") {
       $url = "https://api.cartolafc.globo.com/times?q=". rawurlencode($_GET["team"]);
     } else if ($_GET["api"] === "busca-atletas") {
-      $url = "https://api.cartolafc.globo.com/time/". $_GET["team_slug"];
+      $url = "https://api.cartolafc.globo.com/time/slug/". $_GET["team_slug"];
     } else if ($_GET["api"] === "parciais-atletas") {
       $url = "https://api.cartolafc.globo.com/atletas/pontuados";
     } else if ($_GET["api"] === "mercado-status") {
@@ -22,17 +21,8 @@
       $url = "https://api.cartolafc.globo.com/atletas/mercado";
     }
 
-    $c = curl_init();
+    $json = exec("curl -X GET ".$url);
+    echo $json;
 
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($c, CURLOPT_FRESH_CONNECT, TRUE);
-    curl_setopt($c, CURLOPT_URL, $url);
-
-    $result = curl_exec($c);
-
-    curl_close($c);
-
-    echo $result;
   }
 ?>
