@@ -1,5 +1,5 @@
 <?php
-  /* Cartrolando FC - http://cartrolandofc.com
+  /* Cartrolando FC - http://cartrolandofc.cf
    * https://github.com/wgenial/cartrolandofc
    * Desenvolvido por WGenial - http://wgenial.com.br
    * License: MIT <http://opensource.org/licenses/mit-license.php> - see LICENSE file

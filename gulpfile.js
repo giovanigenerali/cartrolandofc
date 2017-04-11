@@ -1,5 +1,5 @@
 /*
- * CartrolandoFC (http://cartrolandofc.com)
+ * CartrolandoFC (http://cartrolandofc.cf)
  * Developed by WGenial (http://wgenial.com.br)
  */
 
