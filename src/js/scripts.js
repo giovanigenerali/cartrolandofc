@@ -356,15 +356,16 @@ function dropdownTeams(teams, teams_total) {
   for (var i = 0; i < teams_list.length; i++) {
 
     var team_slug = teams_list[i].slug,
-      team_nome = teams_list[i].nome,
-      team_cartoleiro = teams_list[i].nome_cartola;
-
+        team_nome = teams_list[i].nome,
+        team_cartoleiro = teams_list[i].nome_cartola;
+    
     wrapper += " \
 	  <li data-inc='" + i + "' data-slug='" + team_slug + "' data-nome='" + team_nome + "'> \
       <div class='nome'>" + team_nome + "</div> \
       <div class='cartola'>" + team_cartoleiro + "</div> \
 	  </li>";
 
+    escudoTeamList(team_slug, teams_list[i].url_escudo_svg);
   }
 
   wrapper += "</ul>";
@@ -490,9 +491,7 @@ function getAthletes(team_slug) {
 
         // time escudo
         var team = request.time;
-        $team_escudo = $("#team_escudo"),
-        team_escudo = (team.url_escudo_svg != "") ? "<img src=" + team.url_escudo_svg + ">" : "";
-        $team_escudo.html(team_escudo);
+        escudoTeam(team.url_escudo_svg);
 
         var athletes = request.atletas;
 
@@ -1221,3 +1220,50 @@ function init() {
 $(function() {
   init();
 });
+
+function imageExists(url, callback) {
+  var img = new Image();
+  img.onload = function() {
+    callback(true);
+  };
+  img.onerror = function() {
+    callback(false);
+  };
+  img.src = url;
+}
+
+function escudoTeamList(slugTeam, imageUrl) {
+  var imageUrlFallBack = "/images/escudo.png",
+      promise = new Promise(function(resolve) {
+        imageExists(imageUrl, function(exists) {
+          var url;
+          if (exists) {
+            url = imageUrl;
+          } else {
+            url = imageUrlFallBack;
+          }
+          resolve(url);
+        });
+      });
+  promise.then(function(url) {
+    $("li[data-slug="+ slugTeam +"]").prepend("<img class='escudo' src="+ url +">");
+  })
+}
+
+function escudoTeam(imageUrl) {
+  var imageUrlFallBack = "/images/escudo.png",
+      promise = new Promise(function(resolve) {
+        imageExists(imageUrl, function(exists) {
+          var url;
+          if (exists) {
+            url = imageUrl;
+          } else {
+            url = imageUrlFallBack;
+          }
+          resolve(url);
+        });
+      });
+  promise.then(function(url) {
+    $("#team_escudo").html("<img src="+ url +">");
+  });
+}
