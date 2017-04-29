@@ -365,7 +365,7 @@ function dropdownTeams(teams, teams_total) {
       <div class='cartola'>" + team_cartoleiro + "</div> \
 	  </li>";
 
-    escudoTeamList(team_slug, teams_list[i].url_escudo_svg);
+    escudoTeamList(team_slug, teams_list[i].url_escudo_svg, teams_list[i].url_escudo_placeholder_png);
   }
 
   wrapper += "</ul>";
@@ -440,6 +440,7 @@ function getAthletes(team_slug) {
 
     $result = $("#result"),
 
+    $team_escudo = $("#team_escudo"),
     $team_patrimonio = $(".team_patrimonio"),
     $team_rodada = $(".team_rodada"),
     $team_pontuacao = $(".team_pontuacao"),
@@ -464,6 +465,7 @@ function getAthletes(team_slug) {
       $result.hide();
 
       // limpa as informacoes do time
+      $team_escudo.html("");
       $team_patrimonio.html("");
       $team_rodada.html("");
       $team_pontuacao.html("");
@@ -473,6 +475,11 @@ function getAthletes(team_slug) {
 
     },
     success: function(request) {
+      
+      // time
+      var team = request.time;
+      // time escudo
+      escudoTeam(team.url_escudo_svg, team.url_escudo_placeholder_png);
 
       // sem atletas, exibe mensagem de retorno da API
       if (typeof request.mensagem !== "undefined") {
@@ -488,10 +495,6 @@ function getAthletes(team_slug) {
       }
       // tem retorno da API
       else {
-
-        // time escudo
-        var team = request.time;
-        escudoTeam(team.url_escudo_svg);
 
         var athletes = request.atletas;
 
@@ -1232,38 +1235,36 @@ function imageExists(url, callback) {
   img.src = url;
 }
 
-function escudoTeamList(slugTeam, imageUrl) {
-  var imageUrlFallBack = "/images/escudo.png",
-      promise = new Promise(function(resolve) {
-        imageExists(imageUrl, function(exists) {
-          var url;
-          if (exists) {
-            url = imageUrl;
-          } else {
-            url = imageUrlFallBack;
-          }
-          resolve(url);
-        });
-      });
+function escudoTeamList(slugTeam, imageUrl, imageUrlFallBack) {
+  var promise = new Promise(function(resolve) {
+    imageExists(imageUrl, function(exists) {
+      var url;
+      if (exists) {
+        url = imageUrl;
+      } else {
+        url = imageUrlFallBack;
+      }
+      resolve(url);
+    });
+  });
   promise.then(function(url) {
     $("li[data-slug="+ slugTeam +"]").prepend("<img class='escudo' src="+ url +">");
-  })
+  });
 }
 
-function escudoTeam(imageUrl) {
-  var imageUrlFallBack = "/images/escudo.png",
-      promise = new Promise(function(resolve) {
-        imageExists(imageUrl, function(exists) {
-          var url;
-          if (exists) {
-            url = imageUrl;
-          } else {
-            url = imageUrlFallBack;
-          }
-          resolve(url);
-        });
-      });
+function escudoTeam(imageUrl, imageUrlFallBack) {
+  var promise = new Promise(function(resolve) {
+    imageExists(imageUrl, function(exists) {
+      var url;
+      if (exists) {
+        url = imageUrl;
+      } else {
+        url = imageUrlFallBack;
+      }
+      resolve(url);
+    });
+  });
   promise.then(function(url) {
-    $("#team_escudo").html("<img src="+ url +">");
+    $("#team_escudo").html("<img src='"+ url +"'>");
   });
 }
