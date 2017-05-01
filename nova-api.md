@@ -20,6 +20,10 @@
 	
 	https://api.cartolafc.globo.com/partidas
 
+* Partidas da rodada
+	
+	https://api.cartolafc.globo.com/partidas/[rodada]
+
 * Lista de clubes
 	
 	https://api.cartolafc.globo.com/clubes
