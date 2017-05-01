@@ -45,24 +45,6 @@ app.filter('getClassArrowNumber', function() {
   }
 });
 
-app.filter('orderAthleteBy', function() {
-  return function(input, attribute) {
-    if (!angular.isObject(input)) return input;
-
-    var array = [];
-    for(var objectKey in input) {
-      array.push(input[objectKey]);
-    }
-
-    array.sort(function(a, b) {
-      a = parseInt(a[attribute]);
-      b = parseInt(b[attribute]);
-      return a - b;
-    });
-    return array;
-  }
-});
-
 app.filter('localeOrderBy', function () {
   return function (array, sortPredicate, reverseOrder) {
 
@@ -108,16 +90,18 @@ app.filter('localeOrderBy', function () {
 });
 
 app.filter('formatDataHoraPartida', function() {
-  return function(partida) {
-    var diasDaSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-        dataDaPartida = new Date(partida.partida_data.replace(/-/g, "/")),
-        diaDaSemana = diasDaSemana[dataDaPartida.getDay()],
-        dia = dataDaPartida.getDate() < 10 ? "0" + dataDaPartida.getDate() : dataDaPartida.getDate(),
-        mes = ("0" + (dataDaPartida.getMonth() + 1)).slice(-2),
-        ano = dataDaPartida.getFullYear(),
-        hora = dataDaPartida.getHours() < 10 ? "0" + dataDaPartida.getHours() : dataDaPartida.getHours(),
-        minutos = dataDaPartida.getMinutes() < 10 ? "0" + dataDaPartida.getMinutes() : dataDaPartida.getMinutes();
-    return diaDaSemana + " " + [dia, mes, ano].join("/") +" - "+ hora + ":" + minutos;
+  return function(partida_data) {
+    if (partida_data != undefined) {
+      var diasDaSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+          dataDaPartida = new Date(partida_data.replace(/-/g,"/")),
+          diaDaSemana = diasDaSemana[dataDaPartida.getDay()],
+          dia = dataDaPartida.getDate() < 10 ? "0"+dataDaPartida.getDate() : dataDaPartida.getDate(),
+          mes = ("0"+(dataDaPartida.getMonth()+1)).slice(-2),
+          ano = dataDaPartida.getFullYear(),
+          hora = dataDaPartida.getHours() < 10 ? "0"+dataDaPartida.getHours() : dataDaPartida.getHours(),
+          minutos = dataDaPartida.getMinutes() < 10 ? "0"+dataDaPartida.getMinutes() : dataDaPartida.getMinutes();
+      return diaDaSemana+" "+[dia,mes,ano].join("/") +" - "+ hora+":"+minutos;
+    }
   }
 });
 
@@ -146,10 +130,28 @@ app.controller('AtletasMercado', function($scope, $http) {
 
   $scope.atletas_mercado = [];
 
-  $http.get('load-api.php?api=atletas-mercado').success(function(data) {
-    $scope.atletas_mercado = data;
+  $http.get('load-api.php?api=atletas-mercado').then(function(atletas_mercado) {
+    
+    $scope.atletas_mercado = atletas_mercado.data;
+    var atletas = atletas_mercado.data.atletas;
+
+    $http.get('load-api.php?api=partidas&rodada='+ rodada_atual).then(function(partidas) {
+      var partidas = partidas.data.partidas;
+      for (var i=0; i < atletas.length; i++) {
+        var atleta_clube_id = atletas[i].clube_id;
+        for(var ii=0; ii < partidas.length; ii++) {
+          var partida = partidas[ii];
+          if (atleta_clube_id == partida.clube_casa_id || atleta_clube_id == partida.clube_visitante_id) {
+            atletas[i]["partida"] = partida;
+          }
+        }
+      }
+      $scope.atletas_mercado.atletas = atletas;
+    });
+
     $("#result").show();
     $("#search-atleta-filter").removeClass("hide");
+
   });
 
 });

@@ -1,7 +1,7 @@
-<div class="athele-details">
+<div class="athele-details">  
 
   <div class="col-lg-12 partida">
-    <p>{{ atleta.partida | formatDataHoraPartida }}</p>
+    <p>{{ atleta.partida.partida_data | formatDataHoraPartida }}</p>
     <em>{{ atleta.partida.local }}</em>
     <div class="clubes">
       {{ atleta.partida.clube_casa_posicao }}º
