@@ -1,4 +1,4 @@
-## CartolaFC API (2016)
+## CartolaFC API (2016 / 2017)
 
 * Status do mercado
 
