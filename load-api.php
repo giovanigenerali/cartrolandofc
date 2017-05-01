@@ -19,6 +19,10 @@
       $url = "https://api.cartolafc.globo.com/mercado/status";
     } else if ($_GET["api"] === "atletas-mercado") {
       $url = "https://api.cartolafc.globo.com/atletas/mercado";
+    } else if ($_GET["api"] === "clubes") {
+      $url = "https://api.cartolafc.globo.com/clubes";
+    } else if ($_GET["api"] === "partidas") {
+      $url = "https://api.cartolafc.globo.com/partidas/". $_GET["rodada"];
     }
 
     $json = exec("curl -X GET ".$url);
