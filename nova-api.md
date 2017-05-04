@@ -101,3 +101,68 @@
 			]
 		]
 		```
+
+* Posições e Status dos atletas
+``` js
+{
+   "posicoes":[
+      {
+         "id":1,
+         "nome":"Goleiro",
+         "abreviacao":"gol"
+      },
+      {
+         "id":3,
+         "nome":"Zagueiro",
+         "abreviacao":"zag"
+      },
+      {
+         "id":2,
+         "nome":"Lateral",
+         "abreviacao":"lat"
+      },
+      {
+         "id":4,
+         "nome":"Meia",
+         "abreviacao":"mei"
+      },
+      {
+         "id":5,
+         "nome":"Atacante",
+         "abreviacao":"ata"
+      },
+      {
+         "id":6,
+         "nome":"Técnico",
+         "abreviacao":"tec"
+      }
+   ],
+   "status":[
+      {
+         "id":7,
+         "nome":"Provável",
+         "slug":"provavel"
+      },
+      {
+         "id":5,
+         "nome":"Contudido",
+         "slug":"contundido"
+      },
+      {
+         "id":2,
+         "nome":"Dúvida",
+         "slug":"duvida"
+      },
+      {
+         "id":3,
+         "nome":"Suspenso",
+         "slug":"suspenso"
+      },
+      {
+         "id":6,
+         "nome":"Nulo",
+         "slug":"nulo"
+      }
+   ]
+}
+```
