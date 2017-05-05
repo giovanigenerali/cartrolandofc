@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'email' => 'seuemail@dominio',
+    'password' => 'senha',
+];
+

@@ -5,3 +5,4 @@ node_modules/*
 json/*
 .php/*/**
 ga.js
+config.php
