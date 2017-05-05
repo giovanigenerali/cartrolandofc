@@ -34,5 +34,6 @@ rodadas: "//api.cartolafc.globo.com/rodadas",
 salvarTime: "//api.cartolafc.globo.com/auth/time/salvar",
 status_mercado: "//api.cartolafc.globo.com/mercado/status",
 time_adv: "//api.cartolafc.globo.com/time/slug/{slug}",
+time_id: "//api.cartolafc.globo.com/time/id/{id}",
 time: "//api.cartolafc.globo.com/auth/time",
 validarAssinaturaUsuarioSemTime: "//api.cartolafc.globo.com/logged/time/validar-pro"
