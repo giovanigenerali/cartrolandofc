@@ -1,15 +1,15 @@
 <?php
   session_start();
+  
+  if(!file_exists(__DIR__ . '/config.php')) {
+    throw new \RuntimeException('nao existe o arquivo config.php');
+  }
 
-  require __DIR__ . '/vendor/autoload.php';
-
-  $dotenv = new Dotenv\Dotenv(__DIR__);
-  $dotenv->load();
-
+  $config = require __DIR__ . '/config.php';
   header('Content-type: application/json');
 
-  $email = getenv('email');
-  $password = getenv('password');
+  $email = $config['email'];
+  $password = $config['password'];
   $serviceId = 4728;
 
   $url = 'https://login.globo.com/api/authentication';
@@ -40,5 +40,6 @@
   curl_close($c);
 
   $parseJson = json_decode($result, TRUE);
+var_dump($parseJson);
   $_SESSION['glbId'] = $parseJson['glbId'];
 ?>
