@@ -6,3 +6,4 @@ json/*
 .php/*/**
 ga.js
 config.php
+.idea/

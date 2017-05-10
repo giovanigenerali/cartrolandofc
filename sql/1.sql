@@ -1,0 +1,1 @@
+CREATE TABLE `cartrolandofc`.`rodada_pontuacao` ( `id` INT NOT NULL AUTO_INCREMENT , `rodada` INT NOT NULL , `json` TEXT NOT NULL , `criado` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), INDEX (`rodada`)) ENGINE = InnoDB;
