@@ -13,13 +13,21 @@ $jsonDecoded = json_decode($json);
 
 if (isset($jsonDecoded->rodada) && $jsonDecoded->rodada) {
     if (!existsRodada($pdo, $jsonDecoded->rodada)){
-        $statement = $pdo->prepare('insert into rodada_pontuacao (rodada, json) VALUES (:rodada, :json);');
-        $statement->bindParam(':rodada', $jsonDecoded->rodada);
-        $statement->bindParam(':json', $json);
-        if ($statement->execute()) {
-            printf("rodada %s salva na tabela\n", $jsonDecoded->rodada);
-        }else {
-            printf("não foi possivel salvar a rodada, erro: %s %s\n", $jsonDecoded->rodada, $statement->errorCode(), $statement->errorInfo());
+        foreach ($jsonDecoded->atletas as $atletaId => $atleta) {
+            $statement = $pdo->prepare('insert into rodada_pontuacao (rodada, atleta_id, apelido, pontuacao, foto, posicao_id, clube_id) 
+                                    VALUES (:rodada, :atleta, :apelido, :pontuacao, :foto, :posicao, :clube);');
+            $statement->bindParam(':rodada', $jsonDecoded->rodada);
+            $statement->bindParam(':atleta', $atletaId);
+            $statement->bindParam(':apelido', $atleta->apelido);
+            $statement->bindParam(':pontuacao', $atleta->pontuacao);
+            $statement->bindParam(':foto', $atleta->foto);
+            $statement->bindParam(':posicao', $atleta->posicao_id);
+            $statement->bindParam(':clube', $atleta->clube_id);
+            if ($statement->execute()) {
+                printf("atleta %s salvo na tabela\n", $atletaId);
+            }else {
+                printf("não foi possivel salvar o atleta, erro: %s %s\n", $atletaId, $statement->errorCode(), $statement->errorInfo());
+            }
         }
     }else {
         printf("rodada %s existe na tabela\n", $jsonDecoded->rodada);
