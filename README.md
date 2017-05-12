@@ -25,12 +25,14 @@ http://www.cartrolandofc.cf/estatisticas.html
 
 Se você quiser contribuir com melhorias é só fazer um fork do projeto e enviar um pull request.
 
-### Dúvidas sobre a API?
+### Dúvidas sobre as chamadas da API consulte o arquivo:
 
 https://github.com/wgenial/cartrolandofc/blob/master/nova-api.md
 
-https://github.com/wgenial/cartrolandofc/issues
-
+### Dúvidas sobre o projeto? Acesse o chat que criamos no gitter:
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/cartrolandofc/dev)
 
 ### Atenção
-Dúvidas não relacionadas ao projeto como instalação, dúvidas de programação etc.. não serão respondidas e a issue será fechada. Agradeço a compreensão, obrigado.
+- A API oficial do Cartola FC não é pública, logo não tem nenhuma garantia que ficará disponível para acesso. 
+- Quem quiser fazer alguma implementação em produção consumindo a API, deve estar ciente que podem ocorrer riscos de indisponibilidade.
+- Esse projeto não tem nenhum vínculo com o serviço do Cartola FC e não garantimos que tudo aqui desenvolvido ou divulgado possa sofrer alterações sem aviso pelos responsáveis do serviço oficial.
