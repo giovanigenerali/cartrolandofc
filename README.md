@@ -35,4 +35,4 @@ https://github.com/wgenial/cartrolandofc/blob/master/nova-api.md
 ### Atenção
 - A API oficial do Cartola FC não é pública, logo não tem nenhuma garantia que ficará disponível para acesso. 
 - Quem quiser fazer alguma implementação em produção consumindo a API, deve estar ciente que podem ocorrer riscos de indisponibilidade.
-- Esse projeto não tem nenhum vínculo com o serviço do Cartola FC e não garantimos que tudo aqui desenvolvido ou divulgado possa sofrer alterações sem aviso pelos responsáveis do serviço oficial.
+- Esse projeto não tem nenhum vínculo com o serviço do Cartola FC e não garantimos que tudo aqui desenvolvido ou divulgado possa sofrer alterações sem aviso pelos responsáveis.
