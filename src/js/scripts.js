@@ -82,7 +82,7 @@ function searchAthlete() {
 
   $("#atleta").unbind("keyup");
 
-  if ($athlete_name.size() > 0) {
+  if ($athlete_name.length > 0) {
 
     $("#atleta")
       .keydown(function(event) {
@@ -204,15 +204,6 @@ function loadMercadoRodada() {
 
     // chama formatacao da rodada atual
     formatRodadaAtual();
-
-    // Botoes para consultar e/ou atualizar pontuacao parciais da rodada atual
-    // se mercado nao estiver encerado
-    if (mercado_status != 6) {
-      $("#load-pontuacao").show();
-      $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
-        getScoresCurrentRound();
-      });
-    }
 
     // remove loading
     $("#loading-bubbles").remove();
@@ -903,220 +894,6 @@ function getScoresCurrentRound() {
 }
 
 
-// Lista estatisticas de todos os atletas
-function getStatisticsAthletes() {
-
-  var $search_atleta = $("#search-atleta"),
-    $btn_load_estatitiscas = $("#load-atletas-estatisticas"),
-    $result = $("#result"),
-    $team_escalacao = $("#team_escalacao");
-
-  $.ajax({
-    type: "GET",
-    contentType: "application/json",
-    timeout: 10000,
-    url: "load-api.php",
-    data: {
-      api: "atletas-mercado"
-    },
-    beforeSend: function() {
-
-      // exibe o loading
-      loading("show");
-
-      // esconde as informacoes dos atletas
-      $result.hide();
-
-      // limpa as informacoes dos atletas
-      $team_escalacao.html("");
-
-      // esconde a busca de atletas e limpa o input
-      $search_atleta.find("#atleta").val("");
-
-    },
-    success: function(request) {
-
-      // sem retorno da API
-      if (typeof request == "undefined") {
-
-        // esconde as informacoes do time e atletas
-        $result.hide();
-
-        // exibe mensagem
-        notify(notify_msg.athletes_round_error.text, notify_msg.athletes_round_error.type);
-
-        return false;
-
-      }
-      // tem retorno da API
-      else {
-
-        athletes = request.atletas;
-
-        // tem retorno de atletas da API
-        if (typeof athletes !== "undefined" && athletes != "") {
-
-          // loop nos atletas
-          $.each(athletes, function(inc, athlete) {
-
-            // atleta tem info para exibir
-            if (athlete.apelido != "") {
-
-              /*********************************************************/
-              // escudo clube
-              var athlete_clube_escudo = "",
-                clube_escudo45x45 = "";
-              // se o clube_id for diferente de 1, que é 'outros' na API, exibe o escudo do time.
-              if (athlete.clube_id != 1 && athlete.clube_id !== null) {
-                clube_escudo45x45 = request.clubes[athlete.clube_id].escudos['45x45'];
-                if (typeof clube_escudo45x45 !== "undefined" && clube_escudo45x45 !== "") {
-                  athlete_clube_escudo = "<img src='" + clube_escudo45x45 + "'>";
-                }
-              }
-              // clube_id é igual a 1 (outros), exibe escudo fallback.
-              else {
-                athlete_clube_escudo = "<img src='images/emptystate_escudo.svg'>";
-              }
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete foto
-              var atleta_foto = athlete.foto,
-                atleta_foto140x140 = "";
-
-              if (atleta_foto !== "" && atleta_foto !== null) {
-                atleta_foto140x140 = "<img src='" + atleta_foto.replace("FORMATO", "140x140") + "'>";
-              } else {
-                atleta_foto140x140 = "<img src='images/foto-jogador.svg'>";
-              }
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete apelido
-              var athlete_apelido = athlete.apelido;
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete posicao
-              var athlete_posicao = request.posicoes[athlete.posicao_id].nome;
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete preco
-              var athlete_preco = athlete.preco_num.toFixed(2);
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete preco variacao
-              var athlete_preco_variacao = athlete.variacao_num.toFixed(2);
-              athlete_preco_variacao = athlete_preco_variacao.replace("-","");
-              var athlete_preco_variacao_css = getClassArrowNumber(athlete.variacao_num);
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete pontos
-              var athlete_pontos = athlete.pontos_num.toFixed(2);
-              var athlete_pontos_css = getClassNumber(athlete.pontos_num);
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete media pontos
-              var athlete_media = athlete.media_num.toFixed(2);
-              var athlete_media_css = getClassNumber(athlete.media_num);
-              /*********************************************************/
-
-              /*********************************************************/
-              // athlete jogos
-              var athlete_jogos = athlete.jogos_num;
-              /*********************************************************/
-
-              var athlete_row = " \
-              <div id='"+ athlete.atleta_id +"' class='row athlete_wrapper'> \
-                <div class='athlete_clube'>" + athlete_clube_escudo + "</div> \
-                <div class='athlete_foto'>" + atleta_foto140x140 + "</div> \
-                <div class='athlete_apelido_label'>" + athlete_apelido + "</div> \
-                <div class='athlete_posicao_label'>" + athlete_posicao + "</div> \
-                <div class='statistics_wrapper'> \
-                  <div class='statistics'> \
-                    <span class='athlete_val'>C$ "+ athlete_preco +"</span> \
-                    <span class='athlete_label'>Preço</span> \
-                  </div> \
-                  <div class='statistics'> \
-                    <span class='athlete_val "+ athlete_preco_variacao_css +"'>"+ athlete_preco_variacao +"</span> \
-                    <span class='athlete_label' title='Variação (C$)'>Var.(C$)</span> \
-                  </div> \
-                  <div class='statistics'> \
-                    <span class='athlete_val "+ athlete_media_css +"'>"+ athlete_media +"</span> \
-                    <span class='athlete_label' title='Pontuação média'>Média</span> \
-                  </div> \
-                  <div class='statistics "+ ((mercado_status == 6) ? 'hide' : '') +"'> \
-                    <span class='athlete_val " + athlete_pontos_css + "'>" + athlete_pontos + "</span> \
-                    <span class='athlete_label' title='Última pontuação'>Última</span> \
-                  </div> \
-                  <div class='statistics'> \
-                    <span class='athlete_val'>"+ athlete_jogos +"</span> \
-                    <span class='athlete_label'>Jogos</span> \
-                  </div> \
-                </div> \
-              </div>";
-
-              $(athlete_row).appendTo($team_escalacao);
-
-            }
-
-          });
-
-        }
-        // nao tem retorno de atletas da API
-        else {
-
-          // esconde as informacoes do time e atletas
-          $result.hide();
-
-          // exibe mensagem
-          notify(notify_msg.athletes_error.text, notify_msg.athletes_error.type);
-
-          return false;
-
-        }
-
-      }
-
-    },
-    complete: function() {
-
-      // esconde o loading
-      loading("hide");
-
-      // exibe as informacoes do time e atletas
-      $result.show();
-
-      // exibe a busca de atletas
-      $search_atleta.removeClass("hide");
-
-      // exibe a busca por atleta
-      searchAthlete();
-
-      // esconde o botao de consulta
-      $btn_load_estatitiscas.hide();
-
-    },
-    error: function() {
-
-      // esconde o loading
-      $result.hide();
-
-      // exibe mensagem
-      notify(notify_msg.athletes_error.text, notify_msg.athletes_error.type);
-
-      return false;
-
-    }
-
-  });
-
-}
-
 // Inicializacao
 function init() {
 
@@ -1215,6 +992,11 @@ function init() {
     if (e.which == 13) {
       searchTeam();
     }
+  });
+
+  // Botoes para consultar e/ou atualizar pontuacao parciais da rodada atual
+  $("#load-pontuacao, #refresh-pontuacao").on("click", function() {
+    getScoresCurrentRound();
   });
 
 }
