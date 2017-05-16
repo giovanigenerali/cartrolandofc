@@ -1,14 +1,15 @@
 <?php
+
+$config = require __DIR__ . '/config/dsn.php';
+
 //so pode ser executado via CLI
 if (!(php_sapi_name() === 'cli')) {
     exit(0);
 }
 
-$config = require __DIR__ . '/config/dsn.php';
-
 //requisita a api da rodada
-$url = "https://api.cartolafc.globo.com/atletas/pontuados";
-$json = file_get_contents($url);
+$url = "http://api.cartolafc.globo.com/atletas/pontuados";
+$json = request($url);
 $jsonDecoded = json_decode($json);
 
 if (isset($jsonDecoded->rodada) && $jsonDecoded->rodada) {
@@ -50,4 +51,18 @@ function existsRodada(PDO $pdo, $rodada) {
 
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     return  count($result) > 0 ? true : false;
+}
+
+function request($url) {
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_AUTOREFERER ,true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER ,1);
+    curl_setopt($curl, CURLOPT_URL ,$url);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION ,true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER ,[
+        'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+    ]);
+    $data = curl_exec($curl);
+    curl_close($curl);
+    return $data;
 }
