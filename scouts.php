@@ -1,5 +1,5 @@
 <?php
-"scouts" => array(
+$scouts = array(
   "RB" => array(
     "acao" => "Roubada de bola",
     "pontos" => 1.7
