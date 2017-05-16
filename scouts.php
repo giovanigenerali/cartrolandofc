@@ -46,8 +46,7 @@
   ),
   "I" => array(
     "acao" => "Impedimento",
-    "pontos" => -0.5,
-    "scout" => ""
+    "pontos" => -0.5
   ),
   "PP" => array(
     "acao" => "Penalti perdido",
