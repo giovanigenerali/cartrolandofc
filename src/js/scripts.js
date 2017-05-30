@@ -489,6 +489,15 @@ function getAthletes(team_slug) {
 
         var athletes = request.atletas;
 
+        // ordenando os atletas de acordo com a posicao_id, comecando pelo goleiro
+        athletes.sort(function (time1, time2) {
+          if (time1.posicao_id !== undefined && time2.posicao_id !== undefined) {
+            if (time1.posicao_id > time2.posicao_id) return 1;
+            if (time1.posicao_id < time2.posicao_id) return -1;
+          }
+          return 0;
+        });
+
         // tem retorno de atletas da API
         if (typeof athletes !== "undefined" && athletes != "") {
 
