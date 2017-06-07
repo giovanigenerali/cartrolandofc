@@ -9,6 +9,8 @@
 
   if (isset($_GET["api"]) and $_GET["api"] !== "") {
 
+    include __DIR__ . '/load-api-database.php';
+
     if ($_GET["api"] === "busca-time") {
       $url = "https://api.cartolafc.globo.com/times?q=". rawurlencode($_GET["team"]);
     } else if ($_GET["api"] === "busca-atletas") {
