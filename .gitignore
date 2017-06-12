@@ -5,3 +5,4 @@ node_modules/*
 .php/*/**
 ga.js
 config.php
+**/.DS_Store
