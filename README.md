@@ -1,3 +1,12 @@
+# ATENÇÃO - 2018
+- Não pretendemos manter esse projeto ativo nesse ano de 2018.
+- O domínio **http://www.cartrolandofc.cf** ficará ativo até expirar em **(04/04/2018)** após essa data não será renovado.
+- O projeto continuará aqui disponível para consulta, estudo, etc... para quem tiver interesse.
+- Dúvidas deverão ser postadas no chat [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/cartrolandofc/dev) para que os participantes possam ajudar.
+- Agradecemos aos que nos ajudaram nesse projeto com dicas, contribuições em código, dúvidas e apoio no geral!
+
+
+
 # Chat parar tirar suas dúvidas sobre o projeto:
 https://gitter.im/cartrolandofc/dev
 
